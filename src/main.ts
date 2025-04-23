@@ -6,26 +6,30 @@ function noSearchDefaultPageRender() {
   app.innerHTML = `
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
       <div class="content-container">
-        <h1>Und*ck</h1>
-        <p>DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser. Enables <a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
+        <h1>Unduck</h1>
+        <p>DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser. Enables all <a href="https://duckduckgo.com/bang.html" target="_blank"> DuckDuckGo's bangs</a> with minor tweaks.</p>
+        <p>If no Bang is given, uses !g as default.</p>
         <div class="url-container"> 
           <input 
             type="text" 
             class="url-input"
-            value="https://unduck.link?q=%s"
+            value="https://search.timmatheis.com?q=%s"
             readonly 
           />
           <button class="copy-button">
             <img src="/clipboard.svg" alt="Copy" />
           </button>
         </div>
+         <a href="https://github.com/HuckleberryLovesYou/unduck/blob/main/README.md" target="_blank">List of changed bangs</a>
       </div>
       <footer class="footer">
-        <a href="https://t3.chat" target="_blank">t3.chat</a>
+        <a href="https://timmatheis.com" target="_blank">portfolio</a>
         •
-        <a href="https://x.com/theo" target="_blank">theo</a>
+        <a href="https://linktr.ee/HuckleberryLovesYou" target="_blank">linktr.ee</a>
         •
-        <a href="https://github.com/t3dotgg/unduck" target="_blank">github</a>
+        <a href="https://github.com/HuckleberryLovesYou/unduck" target="_blank">Forked Source</a>
+        •
+        <a href="https://github.com/t3dotgg/unduck" target="_blank">Origin Source</a>
       </footer>
     </div>
   `;
