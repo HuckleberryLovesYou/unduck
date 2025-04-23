@@ -1,6 +1,8 @@
-// This file was (mostly) ripped from https://duckduckgo.com/bang.js
+// This file was ripped from https://duckduckgo.com/bang.js
+// Custom changes are marked above using: '// Custom change: {reason}'
 
 export const bangs = [
+  // Custom change: Added entire new bang
   {
     c: "AI",
     d: "www.t3.chat",
@@ -49856,7 +49858,7 @@ export const bangs = [
     r: 2044,
     s: "Hoogle",
     sc: "Languages (haskell)",
-    t: "h",
+    t: "ha",
     u: "http://www.haskell.org/hoogle/?hoogle={{{s}}}",
   },
   {
@@ -51261,13 +51263,14 @@ export const bangs = [
     t: "htmldog",
     u: "http://www.htmldog.com/search/?q={{{s}}}",
   },
+  // Custom change: changed t from 'html' to 'h'
   {
     c: "Online Services",
     d: "duckduckgo.com",
     r: 201,
     s: "DuckDuckGo (HTML)",
     sc: "Search (DDG)",
-    t: "html",
+    t: "h",
     u: "https://duckduckgo.com/html/?q={{{s}}}",
   },
   {
