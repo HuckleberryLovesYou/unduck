@@ -20,7 +20,7 @@ function noSearchDefaultPageRender() {
             <img src="/clipboard.svg" alt="Copy" />
           </button>
         </div>
-         <a href="https://github.com/HuckleberryLovesYou/unduck/blob/main/README.md" target="_blank">List of changed bangs</a>
+         <a href="https://github.com/HuckleberryLovesYou/unduck#changed-bangs" target="_blank">List of changed bangs</a>
       </div>
       <footer class="footer">
         <a href="https://timmatheis.com" target="_blank">portfolio</a>
