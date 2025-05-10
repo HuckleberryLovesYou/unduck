@@ -19,3 +19,7 @@ The Bangs changed or added in comparison to the original list at https://duckduc
 DuckDuckGo does their redirects server side. Their DNS is...not always great. Result is that it often takes ages.
 
 I solved this by doing all of the work client side. Once you've went to https://search.timmatheis.com once, the JS is all cache'd and will never need to be downloaded again. Your device does the redirects, not me.
+
+---
+
+This was forked from https://github.com/t3dotgg/unduck by Theo
