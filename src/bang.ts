@@ -41213,13 +41213,14 @@ export const bangs = [
     u: "https://gamegator.net/search.php?q={{{s}}}",
   },
   {
+    // Added '&udm=14' to search string to directly search in the 'Web' Mode of the Google Search
     c: "Online Services",
     d: "www.google.com",
     r: 1942262,
     s: "Google",
     sc: "Google",
     t: "g",
-    u: "https://www.google.com/search?q={{{s}}}",
+    u: "https://www.google.com/search?q={{{s}}}&udm=14",
   },
   {
     c: "Online Services",
