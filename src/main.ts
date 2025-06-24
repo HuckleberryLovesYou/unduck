@@ -20,7 +20,7 @@ function DefaultPageRender() {
             <img src="/clipboard.svg" alt="Copy" />
           </button>
         </div>
-        <div class="searchbar">You can also use the searchbar directly <a href="https://search.timmatheis.com/searchbar">here<a>.</div>
+        <div class="searchbar">You can also use the searchbar directly <a href="/searchbar">here<a>.</div>
          <a href="https://github.com/HuckleberryLovesYou/unduck#changed-bangs" target="_blank">List of changed bangs</a>
       </div>
       <footer class="footer">
