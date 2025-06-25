@@ -2,12 +2,12 @@ export default function searchBar() {
   const container = document.querySelector<HTMLDivElement>("#searchbar-container")!;
   container.innerHTML = `
     <div class="search-page">
-      <button id="back-button" class="back-button" aria-label="Go back">
+      <button id="back-button" class="back-button" title="Back" aria-label="Go back">
         ←
       </button>
       <h1>Unduck</h1>
       <div class="search-box">
-        <button id="searchbar-button" class="icon-button search-icon" aria-label="Search">
+        <button id="searchbar-button" class="icon-button search-icon" title="Search" aria-label="Search">
           <img src="/search.svg" alt="" class="icon" />
         </button>
         <input
@@ -17,7 +17,7 @@ export default function searchBar() {
           autocomplete="off"
           autofocus
         />
-        <button id="clear-button" class="icon-button clear-icon" aria-label="Clear" style="display: none;">
+        <button id="clear-button" class="icon-button clear-icon" title="Clear" aria-label="Clear" style="display: none;">
           <img src="/clear.svg" alt="" class="icon" />
         </button>
       </div>

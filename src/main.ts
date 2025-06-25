@@ -14,13 +14,17 @@ function DefaultPageRender() {
             type="text" 
             class="url-input"
             value="https://search.timmatheis.com?q=%s"
-            readonly 
+            readonly
+            autofocus
           />
-          <button class="copy-button">
+          <button class="copy-button" title="Copy">
             <img src="/clipboard.svg" alt="Copy" />
           </button>
+          <div class="copy-message" hidden>
+            <a>Copied!</a>
+          </div>
         </div>
-        <div class="searchbar">You can also use the searchbar directly <a href="/searchbar">here<a>.</div>
+        <div class="searchbar">You can also use the !Bangs directly from the <a href="/searchbar">searchbar<a>.</div>
          <a href="https://github.com/HuckleberryLovesYou/unduck#changed-bangs" target="_blank">List of changed bangs</a>
       </div>
       <footer class="footer">
@@ -36,23 +40,23 @@ function DefaultPageRender() {
   `;
 
   const copyButton = app.querySelector<HTMLButtonElement>(".copy-button")!;
+  const copyMessage = app.querySelector<HTMLDivElement>(".copy-message")!;
   const copyIcon = copyButton.querySelector("img")!;
   const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
 
   copyButton.addEventListener("click", async () => {
     await navigator.clipboard.writeText(urlInput.value);
     copyIcon.src = "/clipboard-check.svg";
-
+    copyMessage.hidden = false;
     setTimeout(() => {
       copyIcon.src = "/clipboard.svg";
-    }, 2000);
+      copyMessage.hidden = true;
+    }, 1500);
   });
 }
 
 function renderSearchPage() {
-  console.log("🔍 rendering searchbar page—container exists?", !!document.querySelector("#app"));
   const app = document.querySelector<HTMLDivElement>("#app")!;
-  // Just clear everything and mount the search bar
   app.innerHTML = `<div id="searchbar-container"></div>`;
   searchBar();  
 }
