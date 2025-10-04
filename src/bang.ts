@@ -42540,7 +42540,7 @@ export const bangs = [
     s: "Google Maps",
     sc: "Maps",
     t: "gm",
-    u: "https://google.com/maps/place/{{{s}}}",
+    u: "https://google.com/maps/search/{{{s}}}",
   },
   {
     c: "Online Services",
