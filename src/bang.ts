@@ -2,6 +2,16 @@
 // Custom changes are marked above using: '// Custom change: {reason}'
 
 export const bangs = [
+  // Custom change: Added entire new bang to not only provide t3.chat
+  {
+    c: "AI",
+    d: "chatgpt.com",
+    r: 0,
+    s: "ChatGPT",
+    sc: "AI",
+    t: "ai",
+    u: "https://chatgpt.com/?prompt=[{{{s}}}]",
+  },
   // Custom change: Added entire new bang
   {
     c: "AI",
@@ -3181,12 +3191,13 @@ export const bangs = [
     u: "https://aitopics.org/search?q={{{s}}}",
   },
   {
+    // Custom change: Changed the default !Bang to make room for ChatGPT
     c: "Research",
     d: "www.duckduckgo.com",
     r: 8351,
     s: "Duck.ai",
     sc: "Reference",
-    t: "ai",
+    t: "duckai",
     u: "https://www.duckduckgo.com/?q={{{s}}}&ia=chat&bang=true ",
   },
   {

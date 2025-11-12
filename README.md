@@ -14,6 +14,8 @@ The Bangs changed or added in comparison to the original list at https://duckduc
 | None | !t3 | [T3.chat](https://t3.chat) by [Theo](https://x.com/theo) is a AI Chat with Models of multiple companies. |
 | !html | !h | A [simple DDG Search Engine](https://html.duckduckgo.com/html/) using mostly HTML for higher performance. |
 | !g | !g | Changed the default Google Search View 'All' to 'Web' using &udm=14 |
+| !ai | !duckai | Changed the default !Bang to make room for ChatGPT |
+| None | !ai | Added [ChatGPT](https://chatgpt.com) and made it the default ai in the bangs as it is the largest LLM frontier lab |
 ## How is it that much faster?
 
 DuckDuckGo does their redirects server side. Their DNS is...not always great. Result is that it often takes ages.
