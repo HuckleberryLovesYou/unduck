@@ -10,7 +10,7 @@ export const bangs = [
     s: "ChatGPT",
     sc: "AI",
     t: "ai",
-    u: "https://chatgpt.com/?prompt=[{{{s}}}]",
+    u: "https://chatgpt.com/?prompt={{{s}}}",
   },
   // Custom change: Added entire new bang
   {
