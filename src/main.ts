@@ -45,11 +45,21 @@ function doRedirect() {
   window.location.replace(searchUrl);
 }
 
-const path = window.location.pathname;
-if (window.location.search.includes("q=")) {
-  doRedirect();
-} else if (path.startsWith("/searchbar")) {
-  searchBar();
-} else {
-  homepage();
+function renderPage() {
+  const path = window.location.pathname;
+  if (window.location.search.includes("q=")) {
+    doRedirect();
+  } else if (path.startsWith("/searchbar")) {
+    searchBar();
+  } else {
+    homepage();
+  }
 }
+
+// Initial render
+renderPage();
+
+// Handle client-side navigation (back/forward buttons and programmatic navigation)
+window.addEventListener("popstate", () => {
+  renderPage();
+});
