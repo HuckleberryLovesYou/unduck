@@ -21,6 +21,7 @@ The Bangs changed or added in comparison to the original list at https://duckduc
 | nix | nix | Fix for the Bang for NixOS Wiki domain change |
 | nixos | nixos | Fix for the Bang for NixOS Wiki domain change |
 | nixoswiki | nixoswiki | Fix for the Bang for NixOS Wiki domain change |
+| None | grepcode | Added [Grep.app](https://grep.app/) |
 
 ## How is it that much faster?
 
