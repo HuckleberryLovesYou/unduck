@@ -1,8 +1,18 @@
 // This file was ripped from https://duckduckgo.com/bang.js
 // Custom changes are marked above using: '// Custom change: {reason}'
 
-export const bangs = [
-  // Custom change: Added entire new bang to not only provide t3.chat
+export const bangs = [  
+  // Custom change: Added entire new bang
+  {
+    c: "Tech",
+    d: "modrinth.com",
+    r: 0,
+    s: "Modrinth",
+    sc: "Downloads",
+    t: "modr",
+    u: "https://modrinth.com/mods?q={{{s}}}",
+  },
+  // Custom change: Added entire new bang to not only provide t3.chat but also ChatGPT
   {
     c: "AI",
     d: "chatgpt.com",
@@ -12,7 +22,6 @@ export const bangs = [
     t: "ai",
     u: "https://chatgpt.com/?prompt={{{s}}}",
   },
-  // Custom change: Added entire new bang
   {
     c: "AI",
     d: "www.t3.chat",
