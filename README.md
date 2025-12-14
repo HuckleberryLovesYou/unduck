@@ -17,6 +17,9 @@ The Bangs changed or added in comparison to the original list at https://duckduc
 | !ai | !duckai | Changed the default !Bang to make room for ChatGPT |
 | None | !ai | Added [ChatGPT](https://chatgpt.com) and made it the default ai in the bangs as it is the largest LLM frontier lab |
 | - | - | Fix for the Bang for Google Maps through #1. It used the .../place/... path, but this has now changed to .../search/... |
+| nix | nix | Fix for the Bang for NixOS Wiki domain change |
+| nixos | nixos | Fix for the Bang for NixOS Wiki domain change |
+| nixoswiki | nixoswiki | Fix for the Bang for NixOS Wiki domain change |
 
 ## How is it that much faster?
 
