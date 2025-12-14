@@ -127,7 +127,7 @@ export function homepage() {
       return false;
     }
 
-    const bangExists = bangs.some((b) => b.t === trimmed);
+    const bangExists = bangs.some((b) => b[0] === trimmed);
     if (!bangExists) {
       defaultBangError.textContent = `Bang "!${trimmed}" not found`;
       defaultBangError.style.display = "block";
@@ -142,15 +142,15 @@ export function homepage() {
   // Show bang name in settings
   const updateBangNameInSettings = () => {
     const bangTag = defaultBangInput.value.trim().toLowerCase();
-    const bang = bangs.find((b) => b.t === bangTag);
+    const bang = bangs.find((b) => b[0] === bangTag);
     if (bang && !defaultBangError.textContent) {
       const existingName = defaultBangInput.parentElement?.querySelector(".bang-name-in-settings");
       if (existingName) {
-        existingName.textContent = bang.s;
+        existingName.textContent = bang[1];
       } else {
         const nameSpan = document.createElement("span");
         nameSpan.className = "bang-name-in-settings";
-        nameSpan.textContent = bang.s;
+        nameSpan.textContent = bang[1];
         defaultBangInput.parentElement?.appendChild(nameSpan);
       }
     } else {
