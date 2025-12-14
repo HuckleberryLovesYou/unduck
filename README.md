@@ -27,6 +27,12 @@ DuckDuckGo does their redirects server side. Their DNS is...not always great. Re
 
 I solved this by doing all of the work client side. Once you've went to https://search.timmatheis.com once, the JS is all cache'd and will never need to be downloaded again. Your device does the redirects, not me.
 
+## How it works
+
+[![Unduck - Making DuckDuckGo Bangs Faster](https://img.youtube.com/vi/_DnNzRaBWUU/0.jpg)](https://www.youtube.com/watch?v=_DnNzRaBWUU)
+
+Click here to watch how it works.
+
 ---
 
 This was forked from https://github.com/t3dotgg/unduck by Theo
