@@ -17,9 +17,13 @@ export function Home(props: HomeProps) {
 
     const copyUrl = async () => {
         if (inputRef.current) {
-            await navigator.clipboard.writeText(inputRef.current.value);
-            setShowCopied(true);
-            setTimeout(() => setShowCopied(false), 2000);
+            try {
+                await navigator.clipboard.writeText(inputRef.current.value);
+                setShowCopied(true);
+                setTimeout(() => setShowCopied(false), 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
         }
     };
 
