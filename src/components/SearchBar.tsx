@@ -30,7 +30,6 @@ export function SearchBar(props: SearchBarProps) {
     };
 
     const saveSearchTerm = (term: string) => {
-        // Clean up term (remove bangs)
         const cleanTerm = term.replace(/!\S+/g, "").trim();
         if (!cleanTerm) return;
 
@@ -47,7 +46,6 @@ export function SearchBar(props: SearchBarProps) {
         if (!term.trim()) return;
         saveSearchTerm(term);
 
-        // Redirect logic
         const url = getBangRedirectUrl(term, props.defaultBang, props.customBangs);
         if (url) {
             if (props.openInNewTab) {
@@ -58,17 +56,14 @@ export function SearchBar(props: SearchBarProps) {
         }
     };
 
-    // Autocomplete & History Logic
     useEffect(() => {
         const q = query.toLowerCase();
-        setSelectedIndex(-1); // Reset selection on type
+        setSelectedIndex(-1);
 
-        // Check if cursor is at the end of a potential bang (e.g. "!a" or "test !b")
         const bangMatch = q.match(/!(\S*)$/);
 
         if (bangMatch) {
             const bangPrefix = bangMatch[1];
-            // Merge custom bangs with default bangs for search
             const allBangs: Bang[] = [
                 ...props.customBangs.map(cb => [cb.t, cb.c || cb.t, "Custom", cb.u] as Bang),
                 ...bangs
@@ -80,13 +75,10 @@ export function SearchBar(props: SearchBarProps) {
         } else {
             setBangMatches([]);
 
-            // Show history based on clean query
             const cleanQ = q.replace(/!\S+/g, "").trim();
-
             const history = getSearchTerms();
 
             if (!cleanQ) {
-                // If query is empty or just bangs with spaces, show recent history
                 setSuggestions(history.slice(0, 5));
             } else {
                 const matches = history.filter(h => h.toLowerCase().includes(cleanQ)).slice(0, 5);
@@ -98,39 +90,11 @@ export function SearchBar(props: SearchBarProps) {
 
     const handleSelection = (item: string | Bang) => {
         if (Array.isArray(item)) {
-            // It's a Bang match - replace the partial bang
             const newQuery = query.replace(/!(\S*)$/, `!${item[0]} `);
             setQuery(newQuery);
         } else {
-            // It's a History match
-            // User wants to preserve existing bangs.
             const existingBangs = query.match(/!\S+/g);
             if (existingBangs) {
-                // If we have bangs, assume we replace the text part but keep bangs.
-                // E.g. "!g te" -> selection "term" -> "!g term"
-                // Or "te !g" -> selection "term" -> "term !g"
-                // Simple approach: Replace the non-bang part? 
-                // Or just append?
-                // The user said: "without replacing the enterd !Bang if any"
-                // If the user typed "test !g" and selects "testing", it should probably become "testing !g".
-                // If the user typed "!g te" and selects "testing", it should become "!g testing".
-
-                // Let's try to reconstruct based on input pattern.
-                // We know 'cleanQ' in useEffect was used to find matches.
-
-                const parts = query.split(/(!\S+)/).filter(Boolean);
-                // parts could be ["!g", " te"] or ["te", " !g"] or ["!g", " ", "!w"]
-
-                // This is getting complex to robustly replace "the text part". 
-                // A simpler, robust heuristic: 
-                // 1. Take all bangs from current query.
-                // 2. Take the selected history item.
-                // 3. Combine them.
-                // Ideally preserve order? 
-
-                // If the query starts with a bang, put it first.
-                // If it ends with a bang, put it last.
-
                 const bangsFound = query.match(/!\S+/g) || [];
                 const startsWithBang = query.trim().startsWith("!");
 
