@@ -1,6 +1,6 @@
 // This file was ripped from https://duckduckgo.com/bang.js
 
-type Bang = [string, string, string, string]; // [tag, name, domain, url]
+export type Bang = [string, string, string, string]; // [tag, name, domain, url]
 
 export const bangs: Bang[] = [
   ["modr", "Modrinth", "modrinth.com", "https://modrinth.com/mods?q={{{s}}}"],
