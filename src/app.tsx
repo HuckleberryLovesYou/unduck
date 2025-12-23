@@ -8,19 +8,16 @@ export function App() {
     const [route, setRoute] = useState(window.location.pathname);
 
     // Settings State
-    const [openInNewTab, setOpenInNewTab] = useState(false);
-    const [defaultBang, setDefaultBang] = useState("g");
-    const [customBangs, setCustomBangs] = useState<CustomBang[]>([]);
-
-    // Load Settings
-    useEffect(() => {
-        setOpenInNewTab(localStorage.getItem("openInNewTab") === "true");
-        setDefaultBang(localStorage.getItem("default-bang") || "g");
+    const [openInNewTab, setOpenInNewTab] = useState(() => localStorage.getItem("openInNewTab") === "true");
+    const [defaultBang, setDefaultBang] = useState(() => localStorage.getItem("default-bang") || "g");
+    const [customBangs, setCustomBangs] = useState<CustomBang[]>(() => {
         try {
             const stored = localStorage.getItem("custom-bangs");
-            if (stored) setCustomBangs(JSON.parse(stored));
-        } catch { }
-    }, []);
+            return stored ? JSON.parse(stored) : [];
+        } catch {
+            return [];
+        }
+    });
 
     // Save Settings
     useEffect(() => {
@@ -41,24 +38,19 @@ export function App() {
             setRoute(window.location.pathname);
         };
         window.addEventListener("popstate", handlePopState);
-
-        // Initial Redirect Check
-        const url = new URL(window.location.href);
-        const query = url.searchParams.get("q")?.trim();
-
-        if (query) {
-            const redirectUrl = getBangRedirectUrl(query, defaultBang, customBangs);
-            if (redirectUrl) {
-                window.location.replace(redirectUrl);
-                return;
-            }
-            // If no redirect URL (e.g. empty or invalid), just stay on Home (default)
-            // Original logic: homepage().
-            // We'll just let the router render Home.
-        }
-
         return () => window.removeEventListener("popstate", handlePopState);
-    }, [defaultBang, customBangs]);
+    }, []);
+
+    const url = new URL(window.location.href);
+    const query = url.searchParams.get("q")?.trim();
+
+    if (query) {
+        const redirectUrl = getBangRedirectUrl(query, defaultBang, customBangs);
+        if (redirectUrl) {
+            window.location.replace(redirectUrl);
+            return null;
+        }
+    }
 
     if (route.startsWith("/searchbar")) {
         return (
