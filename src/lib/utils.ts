@@ -13,7 +13,17 @@ export function getBangRedirectUrl(query: string, defaultBangTag: string, custom
     }
 
     // 2. Check Standard Bangs
-    const defaultBang = bangs.find((b) => b[0] === defaultBangTag) || bangs.find((b) => b[0] === "g"); // Fallback to google
+    const defaultBang = bangs.find((b) => b[0] === defaultBangTag)
+        ?? (customBangs.find(b => b.t === defaultBangTag)
+            ? [
+                customBangs.find(b => b.t === defaultBangTag)!.t,
+                customBangs.find(b => b.t === defaultBangTag)!.c || "Custom",
+                "Custom",
+                customBangs.find(b => b.t === defaultBangTag)!.u.replace("%s", "{{{s}}}")
+            ] as any
+            : null)
+        ?? bangs.find((b) => b[0] === "g"); // Fallback to google
+
     const selectedBang = bangCandidate ? bangs.find((b) => b[0] === bangCandidate) : defaultBang;
 
     const finalBang = selectedBang || defaultBang;
