@@ -1,5 +1,7 @@
 import { useState, useRef } from "preact/hooks";
 import { Settings, CustomBang } from "./Settings";
+import { Changelog } from "./Changelog";
+import { currentVersion } from "../lib/changelog-data";
 
 interface HomeProps {
     openInNewTab: boolean;
@@ -12,6 +14,7 @@ interface HomeProps {
 
 export function Home(props: HomeProps) {
     const [showSettings, setShowSettings] = useState(false);
+    const [showChangelog, setShowChangelog] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -67,20 +70,41 @@ export function Home(props: HomeProps) {
                 </div>
             </div>
 
-            <button
-                id="homepage-settings-button"
-                className="homepage-settings-button"
-                title="Settings"
-                aria-label="Settings"
-                onClick={() => setShowSettings(true)}
-            >
-                <img src="/settings-icon.svg" alt="" className="icon" />
-            </button>
+            <div className="bottom-left-group">
+                <button
+                    className="homepage-settings-button"
+                    title="Settings"
+                    aria-label="Settings"
+                    onClick={() => setShowSettings(true)}
+                >
+                    <img src="/settings-icon.svg" alt="" className="icon" />
+                </button>
+                <button
+                    className="changelog-button"
+                    title="Changelog"
+                    onClick={() => setShowChangelog(true)}
+                >
+                    Changelog
+                </button>
+                <span
+                    className="version-text"
+                    onClick={() => setShowChangelog(true)}
+                    title="View Changelog"
+                    style={{ cursor: "pointer" }}
+                >
+                    {currentVersion}
+                </span>
+            </div>
 
             <Settings
                 isOpen={showSettings}
                 onClose={() => setShowSettings(false)}
                 {...props}
+            />
+
+            <Changelog
+                isOpen={showChangelog}
+                onClose={() => setShowChangelog(false)}
             />
 
             <footer className="footer">

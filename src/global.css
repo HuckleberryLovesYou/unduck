@@ -288,9 +288,8 @@ button {
 
 /* Homepage settings button */
 .homepage-settings-button {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
+  /* Position handled by .bottom-left-group */
+  /* position: fixed; bottom: 24px; left: 24px; */
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -801,6 +800,108 @@ button {
   color: #eee;
   font-size: 1rem;
   flex: 1;
+}
+
+/* Bottom Left Group */
+.bottom-left-group {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+}
+
+/* Changelog Button */
+.changelog-button {
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.changelog-button:hover {
+  color: #eee;
+}
+
+/* Version Text */
+.version-text {
+  font-size: 0.8125rem;
+  color: #666;
+  /* Very subtle, darker than regular text */
+  font-family: 'Courier New', monospace;
+  user-select: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.version-text:hover {
+  color: #eee;
+  text-decoration: underline;
+  text-decoration-color: #444;
+}
+
+/* Changelog Popup specific styles */
+.changelog-popup {
+  max-width: 600px;
+}
+
+.changelog-content {
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.changelog-entry {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.changelog-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.changelog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.changelog-title {
+  font-size: 1.125rem;
+  color: #eee;
+  font-weight: 600;
+  margin: 0;
+}
+
+.changelog-date {
+  font-size: 0.8125rem;
+  color: #666;
+  font-family: 'Courier New', monospace;
+}
+
+.changelog-version {
+  font-size: 0.75rem;
+  background: #2a2a2a;
+  color: #eee;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #333;
+}
+
+.changelog-description {
+  font-size: 0.9375rem;
+  color: #aaa;
+  line-height: 1.6;
 }
 
 
