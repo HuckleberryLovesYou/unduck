@@ -45,3 +45,23 @@ export function getBangRedirectUrl(query: string, defaultBangTag: string, custom
         encodeURIComponent(cleanQuery).replace(/%2F/g, "/")
     );
 }
+
+export function parseVersion(version: string) {
+    const match = version.match(/^v?(\d+)\.(\d+)\.(\d+)$/);
+    if (!match) return { major: 0, minor: 0, patch: 0 };
+    return {
+        major: parseInt(match[1], 10),
+        minor: parseInt(match[2], 10),
+        patch: parseInt(match[3], 10)
+    };
+}
+
+export function isMajorOrMinorUpdate(oldVersion: string, newVersion: string): boolean {
+    const oldV = parseVersion(oldVersion);
+    const newV = parseVersion(newVersion);
+
+    if (newV.major > oldV.major) return true;
+    if (newV.major === oldV.major && newV.minor > oldV.minor) return true;
+
+    return false;
+}

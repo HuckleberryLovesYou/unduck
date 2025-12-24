@@ -1,4 +1,4 @@
-export const currentVersion = "v0.1.0";
+export const currentVersion = "v0.1.1";
 
 export interface ChangelogEntry {
     date: string;
@@ -10,8 +10,14 @@ export interface ChangelogEntry {
 export const changelogData: ChangelogEntry[] = [
     {
         date: "2025-12-24",
+        title: "Smart Changelog Fix",
+        description: "Fixed an issue where the changelog popup would reopen on the second visit even if manually closed.",
+        version: "v0.1.1"
+    },
+    {
+        date: "2025-12-24",
         title: "Versioning & Changelog",
-        description: "Added a version display and a changelog popup to keep users updated on new features.",
+        description: "Added a version display and a smart changelog popup to keep users updated on new features.",
         version: "v0.1.0"
     },
     {

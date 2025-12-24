@@ -1,7 +1,8 @@
-import { useState, useRef } from "preact/hooks";
+import { useState, useRef, useEffect } from "preact/hooks";
 import { Settings, CustomBang } from "./Settings";
 import { Changelog } from "./Changelog";
 import { currentVersion } from "../lib/changelog-data";
+import { isMajorOrMinorUpdate } from "../lib/utils";
 
 interface HomeProps {
     openInNewTab: boolean;
@@ -17,6 +18,46 @@ export function Home(props: HomeProps) {
     const [showChangelog, setShowChangelog] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Smart Changelog Logic
+    useEffect(() => {
+        const visitCount = parseInt(localStorage.getItem("visit-count") || "0", 10) + 1;
+        localStorage.setItem("visit-count", visitCount.toString());
+
+        const lastSeenVersion = localStorage.getItem("last-seen-version");
+        const closedPopupVersion = localStorage.getItem("closed-popup-version");
+
+        let shouldOpen = false;
+
+        if (visitCount === 2) {
+            // Only open on 2nd visit if they haven't already closed it (e.g. manually on 1st visit)
+            if (closedPopupVersion !== currentVersion) {
+                shouldOpen = true;
+            }
+        } else if (lastSeenVersion && lastSeenVersion !== currentVersion) {
+            // Check if major or minor update
+            if (isMajorOrMinorUpdate(lastSeenVersion, currentVersion)) {
+                // Only open if they haven't explicitly closed this version already
+                // (Though logically if lastSeen != current repairs, they likely haven't closed it yet unless they opened it manually)
+                if (closedPopupVersion !== currentVersion) {
+                    shouldOpen = true;
+                }
+            }
+        }
+
+        if (shouldOpen) {
+            setShowChangelog(true);
+        }
+
+        // Always update last seen to current
+        localStorage.setItem("last-seen-version", currentVersion);
+
+    }, []);
+
+    const handleCloseChangelog = () => {
+        setShowChangelog(false);
+        localStorage.setItem("closed-popup-version", currentVersion);
+    };
 
     const copyUrl = async () => {
         if (inputRef.current) {
@@ -104,7 +145,7 @@ export function Home(props: HomeProps) {
 
             <Changelog
                 isOpen={showChangelog}
-                onClose={() => setShowChangelog(false)}
+                onClose={handleCloseChangelog}
             />
 
             <footer className="footer">
