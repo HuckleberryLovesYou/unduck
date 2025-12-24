@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "preact/hooks";
 import { Settings, CustomBang } from "./Settings";
 import { Changelog } from "./Changelog";
+import { OnboardingArrow } from "./OnboardingArrow";
 import { currentVersion } from "../lib/changelog-data";
 import { isMajorOrMinorUpdate } from "../lib/utils";
 
@@ -18,6 +19,17 @@ export function Home(props: HomeProps) {
     const [showChangelog, setShowChangelog] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Onboarding Arrow Logic
+    const [showArrow, setShowArrow] = useState(false);
+
+    useEffect(() => {
+        const arrowSeen = localStorage.getItem("settings-arrow-seen");
+        if (!arrowSeen) {
+            setShowArrow(true);
+            localStorage.setItem("settings-arrow-seen", "true");
+        }
+    }, []);
 
     // Smart Changelog Logic
     useEffect(() => {
@@ -78,6 +90,13 @@ export function Home(props: HomeProps) {
         window.dispatchEvent(navEvent);
     };
 
+    const handleSettingsClick = () => {
+        setShowSettings(true);
+        if (showArrow) {
+            setShowArrow(false);
+        }
+    };
+
     return (
         <div className="homepage">
             <div className="homepage-content">
@@ -112,11 +131,12 @@ export function Home(props: HomeProps) {
             </div>
 
             <div className="bottom-left-group">
+                {showArrow && <OnboardingArrow />}
                 <button
                     className="homepage-settings-button"
                     title="Settings"
                     aria-label="Settings"
-                    onClick={() => setShowSettings(true)}
+                    onClick={handleSettingsClick}
                 >
                     <img src="/settings-icon.svg" alt="" className="icon" />
                 </button>

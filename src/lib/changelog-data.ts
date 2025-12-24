@@ -1,4 +1,4 @@
-export const currentVersion = "v0.1.1";
+export const currentVersion = "v0.1.2";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,12 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2025-12-24",
+        title: "Feature Discovery",
+        description: "Added an onboarding arrow to highlight the Default & Custom Bangs settings.",
+        version: "v0.1.2"
+    },
     {
         date: "2025-12-24",
         title: "Smart Changelog Fix",
