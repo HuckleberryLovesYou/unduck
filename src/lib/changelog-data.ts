@@ -1,4 +1,4 @@
-export const currentVersion = "v0.1.2";
+export const currentVersion = "v0.2.0";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,12 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2025-12-27",
+        title: "Themes",
+        description: "Added a theme selector to switch between dark, light, and system themes.",
+        version: "v0.2.0"
+    },
     {
         date: "2025-12-24",
         title: "Feature Discovery",
