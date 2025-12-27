@@ -1,4 +1,4 @@
-export const currentVersion = "v0.2.0";
+export const currentVersion = "v0.2.1";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,12 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2025-12-27",
+        title: "Settings toast fix",
+        description: "Fixed an issue where toast notifications would not show, if the toast animation is already being shown.",
+        version: "v0.2.1"
+    },
     {
         date: "2025-12-27",
         title: "Themes",

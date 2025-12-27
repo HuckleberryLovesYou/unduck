@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect, useRef } from "preact/hooks";
 import { bangs } from "../bang";
 
 export interface CustomBang {
@@ -49,11 +49,24 @@ export function Settings({
         }
     }, [defaultBang, isOpen]);
 
+    const toastTimeoutRef = useRef<number | null>(null);
+
     // Toast Helper
     const triggerToast = (msg: string = "Settings saved") => {
-        setToastMessage(msg);
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 2000);
+        if (toastTimeoutRef.current) {
+            clearTimeout(toastTimeoutRef.current);
+            toastTimeoutRef.current = null;
+        }
+        setShowToast(false);
+        
+        // Small timeout to allow CSS transition/animation to reset
+        setTimeout(() => {
+            setToastMessage(msg);
+            setShowToast(true);
+            toastTimeoutRef.current = window.setTimeout(() => {
+                setShowToast(false);
+            }, 2000);
+        }, 50);
     };
 
     const handleClose = () => {
