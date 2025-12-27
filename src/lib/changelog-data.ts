@@ -1,4 +1,4 @@
-export const currentVersion = "v0.2.1";
+export const currentVersion = "v0.2.2";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,13 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2025-12-27",
+        title: "Refactor",
+        description:
+            "Refactored the code to improve maintainability and development performance.",
+        version: "v0.2.2"
+    },
     {
         date: "2025-12-27",
         title: "Settings toast fix",
