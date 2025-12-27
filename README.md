@@ -1,41 +1,64 @@
 # Unduck
 
-DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser. Enables all of DuckDuckGo's bangs to work, but much faster.
+A blazing fast, privacy-focused search redirect tool.
+DuckDuckGo's bang redirects are too slow. Unduck moves the logic client-side, making redirects instant.
+Forked from [t3dotgg/unduck](https://github.com/t3dotgg/unduck).
+
+## 🚀 Why Use Unduck?
+
+-   **Speed**: Redirects happen entirely in your browser. No server round-trips for the redirect logic.
+-   **Privacy**: No tracking. Your queries stay on your device until they hit the target search engine.
+-   **Customization**: Add your own bangs, change themes, and configure default behaviors.
+-   **Modern Stack**: Built with [Preact](https://preactjs.com/) and [Vite](https://vitejs.dev/) for a lightweight, optimized experience.
+
+## ✨ Features
+
+-   **⚡ Client-Side Redirects**: Instant routing to thousands of supported sites.
+-   **🎨 Theming System**:
+    -   **Dark Mode** (Default)
+    -   **Light Mode**
+    -   **System Sync** (Follows your OS preference)
+-   **🛠️ Power User Settings**:
+    -   **Custom Bangs**: Add your own shortcuts (e.g., `!mybang` -> `https://example.com/search?q=%s`).
+    -   **Default Bang**: Change the fallback search engine (default is `!g` / Google).
+    -   **Open in New Tab**: Configure search behavior.
+-   **📝 Changelog**: Built-in update tracker to see what's new.
+
+## 🛠️ Usage
+
+### Add to Browser
+
+Add the following URL as a custom search engine in your browser settings (Chrome, Firefox, Edge, etc.):
 
 ```
 https://search.timmatheis.com?q=%s
 ```
 
-## Changed Bangs
-The Bangs changed or added in comparison to the original list at https://duckduckgo.com/bang.js:
+Now you can use it just like DuckDuckGo!
 
-| Original | Changed | Description |
-| --- | --- | --- |
-| None | !t3 | [T3.chat](https://t3.chat) by [Theo](https://x.com/theo) is a AI Chat with Models of multiple companies. |
-| !html | !h | A [simple DDG Search Engine](https://html.duckduckgo.com/html/) using mostly HTML for higher performance. |
-| !g | !g | Changed the default Google Search View 'All' to 'Web' using &udm=14 |
-| !ai | !duckai | Changed the default !Bang to make room for ChatGPT |
-| None | !ai | Added [ChatGPT](https://chatgpt.com) and made it the default ai in the bangs as it is the largest LLM frontier lab |
-| None | !grok | Added [Grok](https://grok.com) |
-| - | - | Fix for the Bang for Google Maps through #1. It used the .../place/... path, but this has now changed to .../search/... |
-| nix | nix | Fix for the Bang for NixOS Wiki domain change |
-| nixos | nixos | Fix for the Bang for NixOS Wiki domain change |
-| nixoswiki | nixoswiki | Fix for the Bang for NixOS Wiki domain change |
-| None | grepcode | Added [Grep.app](https://grep.app/) |
-| None | modr | Added [Modrinth](https://modrinth.com/) |
+-   Type `!yt cat videos` -> Redirects to YouTube.
+-   Type `!w rust lang` -> Redirects to Wikipedia.
+-   Type `cats` -> Searches Google (or your configured default).
 
-## How is it that much faster?
+### Changed Bangs (In this Fork)
 
-DuckDuckGo does their redirects server side. Their DNS is...not always great. Result is that it often takes ages.
+This fork includes several custom bang overrides for better utility:
 
-I solved this by doing all of the work client side. Once you've went to https://search.timmatheis.com once, the JS is all cache'd and will never need to be downloaded again. Your device does the redirects, not me.
+| Original | Changed    | Description                                                                     |
+| -------- | ---------- | ------------------------------------------------------------------------------- |
+| None     | `!t3`      | [T3.chat](https://t3.chat) by [Theo](https://x.com/theo) - AI Chat aggregation. |
+| `!html`  | `!h`       | A [simple DDG Search Engine](https://html.duckduckgo.com/html/).                |
+| `!g`     | `!g`       | Google Search ('Web' mode `&udm=14` by default).                                |
+| `!ai`    | `!duckai`  | Renamed original !ai to !duckai.                                                |
+| None     | `!ai`      | [ChatGPT](https://chatgpt.com) (Default AI bang).                               |
+| None     | `!grok`    | [Grok](https://grok.com).                                                       |
+| -        | -          | Fixed Google Maps (`.../search/...` path).                                      |
+| `nix`    | `nix`      | Fixed NixOS Wiki domain.                                                        |
+| None     | `grepcode` | Added [Grep.app](https://grep.app/).                                            |
+| None     | `modr`     | Added [Modrinth](https://modrinth.com/).                                        |
 
-## How it works
+## 🤝 Credits
 
-[![Unduck - Making DuckDuckGo Bangs Faster](https://img.youtube.com/vi/_DnNzRaBWUU/0.jpg)](https://www.youtube.com/watch?v=_DnNzRaBWUU)
-
-Click here to watch how it works.
-
----
-
-This was forked from https://github.com/t3dotgg/unduck by Theo
+-   Originally created by [Theo (t3dotgg)](https://github.com/t3dotgg).
+-   Forked and maintained by [Tim Matheis](https://timmatheis.com).
+-   [Watch how it works](https://www.youtube.com/watch?v=_DnNzRaBWUU).
