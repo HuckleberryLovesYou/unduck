@@ -10,18 +10,30 @@ export function Changelog({ isOpen, onClose }: ChangelogProps) {
 
     return (
         <div className="settings-overlay" onClick={onClose} style={{ display: "block" }}>
-            <div className="settings-popup changelog-popup" onClick={e => e.stopPropagation()} style={{ display: "flex" }}>
+            <div
+                className="settings-popup changelog-popup"
+                onClick={(e) => e.stopPropagation()}
+                style={{ display: "flex" }}
+            >
                 <div className="settings-popup-header">
                     <h2>Changelog</h2>
-                    <button className="settings-close" onClick={onClose} aria-label="Close changelog">×</button>
+                    <button
+                        className="settings-close"
+                        onClick={onClose}
+                        aria-label="Close changelog"
+                    >
+                        ×
+                    </button>
                 </div>
                 <div className="settings-popup-content changelog-content">
                     {changelogData.map((entry, index) => (
                         <div key={index} className="changelog-entry">
                             <div className="changelog-header">
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                     <h3 className="changelog-title">{entry.title}</h3>
-                                    {entry.version && <span className="changelog-version">{entry.version}</span>}
+                                    {entry.version && (
+                                        <span className="changelog-version">{entry.version}</span>
+                                    )}
                                 </div>
                                 <span className="changelog-date">{entry.date}</span>
                             </div>
@@ -29,7 +41,9 @@ export function Changelog({ isOpen, onClose }: ChangelogProps) {
                         </div>
                     ))}
                     {changelogData.length === 0 && (
-                        <p style={{ opacity: 0.5, fontStyle: "italic", textAlign: "center" }}>No changes yet.</p>
+                        <p style={{ opacity: 0.5, fontStyle: "italic", textAlign: "center" }}>
+                            No changes yet.
+                        </p>
                     )}
                 </div>
             </div>

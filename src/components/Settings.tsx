@@ -58,7 +58,7 @@ export function Settings({
             toastTimeoutRef.current = null;
         }
         setShowToast(false);
-        
+
         // Small timeout to allow CSS transition/animation to reset
         setTimeout(() => {
             setToastMessage(msg);
@@ -97,7 +97,8 @@ export function Settings({
             return;
         }
 
-        const exists = bangs.some(b => b[0] === trimmed) || customBangs.some(b => b.t === trimmed);
+        const exists =
+            bangs.some((b) => b[0] === trimmed) || customBangs.some((b) => b.t === trimmed);
         if (!exists) {
             setDefaultBangError(`Bang "!${trimmed}" not found`);
         } else {
@@ -118,7 +119,7 @@ export function Settings({
         if (!tag || !cbUrl) return;
 
         // Simple validation
-        if (customBangs.some(b => b.t === tag)) {
+        if (customBangs.some((b) => b.t === tag)) {
             alert("Bang tag already exists!");
             return;
         }
@@ -131,7 +132,7 @@ export function Settings({
     };
 
     const removeCustomBang = (tag: string) => {
-        setCustomBangs(customBangs.filter(b => b.t !== tag));
+        setCustomBangs(customBangs.filter((b) => b.t !== tag));
         triggerToast("Bang removed");
     };
 
@@ -140,23 +141,41 @@ export function Settings({
         triggerToast("Setting saved");
     };
 
-    const defaultBangName = bangs.find(b => b[0] === localDefaultBang)?.[1]
-        || customBangs.find(b => b.t === localDefaultBang)?.c
-        || (customBangs.find(b => b.t === localDefaultBang) ? "!" + localDefaultBang : undefined);
+    const defaultBangName =
+        bangs.find((b) => b[0] === localDefaultBang)?.[1] ||
+        customBangs.find((b) => b.t === localDefaultBang)?.c ||
+        (customBangs.find((b) => b.t === localDefaultBang) ? "!" + localDefaultBang : undefined);
 
     return (
         <>
             {isOpen && (
-                <div className="settings-overlay" onClick={handleClose} style={{ display: "block" }}>
-                    <div className="settings-popup" onClick={e => e.stopPropagation()} style={{ display: "block" }}>
+                <div
+                    className="settings-overlay"
+                    onClick={handleClose}
+                    style={{ display: "block" }}
+                >
+                    <div
+                        className="settings-popup"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ display: "block" }}
+                    >
                         <div className="settings-popup-header">
                             <h2>Settings</h2>
-                            <button className="settings-close" onClick={handleClose} aria-label="Close settings">×</button>
+                            <button
+                                className="settings-close"
+                                onClick={handleClose}
+                                aria-label="Close settings"
+                            >
+                                ×
+                            </button>
                         </div>
                         {/* ... existing content ... */}
                         <div className="settings-popup-content">
                             <div className="settings-item">
-                                <div className="settings-input-row" style={{ justifyContent: "space-between" }}>
+                                <div
+                                    className="settings-input-row"
+                                    style={{ justifyContent: "space-between" }}
+                                >
                                     <label className="settings-label-inline">Theme</label>
                                     <select
                                         className="settings-input-inline"
@@ -165,7 +184,11 @@ export function Settings({
                                             setTheme(e.currentTarget.value);
                                             triggerToast("Theme saved");
                                         }}
-                                        style={{ flex: "0 0 auto", width: "150px", cursor: "pointer" }}
+                                        style={{
+                                            flex: "0 0 auto",
+                                            width: "150px",
+                                            cursor: "pointer"
+                                        }}
                                     >
                                         <option value="dark">Dark</option>
                                         <option value="light">Light</option>
@@ -182,33 +205,67 @@ export function Settings({
                                         onChange={handleToggle}
                                     />
                                     <span className="settings-toggle-slider"></span>
-                                    <span className="settings-toggle-label">Open searches in a new tab</span>
+                                    <span className="settings-toggle-label">
+                                        Open searches in a new tab
+                                    </span>
                                 </label>
                             </div>
 
                             <div className="settings-item">
                                 <div className="settings-input-row">
-                                    <label className="settings-label-inline" htmlFor="default-bang-input">Default Bang</label>
+                                    <label
+                                        className="settings-label-inline"
+                                        htmlFor="default-bang-input"
+                                    >
+                                        Default Bang
+                                    </label>
                                     <input
                                         type="text"
                                         id="default-bang-input"
                                         className="settings-input-inline"
                                         value={"!" + localDefaultBang}
-                                        onInput={(e) => validateAndSetDefaultBang(e.currentTarget.value)}
+                                        onInput={(e) =>
+                                            validateAndSetDefaultBang(e.currentTarget.value)
+                                        }
                                         onBlur={() => !defaultBangError && triggerToast()}
                                         placeholder="!g"
                                         maxLength={50}
                                     />
-                                    {defaultBangName && <span className="bang-name-in-settings">{defaultBangName}</span>}
+                                    {defaultBangName && (
+                                        <span className="bang-name-in-settings">
+                                            {defaultBangName}
+                                        </span>
+                                    )}
                                 </div>
-                                {defaultBangError && <div className="settings-error" style={{ display: "block", color: "var(--error-color, #ff4444)", marginTop: "4px" }}>{defaultBangError}</div>}
-                                <div className="settings-input-hint">Enter a bang tag to use when no bang is specified</div>
+                                {defaultBangError && (
+                                    <div
+                                        className="settings-error"
+                                        style={{
+                                            display: "block",
+                                            color: "var(--error-color, #ff4444)",
+                                            marginTop: "4px"
+                                        }}
+                                    >
+                                        {defaultBangError}
+                                    </div>
+                                )}
+                                <div className="settings-input-hint">
+                                    Enter a bang tag to use when no bang is specified
+                                </div>
                             </div>
 
                             <div className="settings-item">
-                                <h3 className="settings-label" style={{ marginBottom: "12px", fontSize: "1rem" }}>Custom Bangs</h3>
+                                <h3
+                                    className="settings-label"
+                                    style={{ marginBottom: "12px", fontSize: "1rem" }}
+                                >
+                                    Custom Bangs
+                                </h3>
                                 <form onSubmit={addCustomBang} className="custom-bang-form">
-                                    <div className="settings-input-wrapper" style={{ marginBottom: "12px" }}>
+                                    <div
+                                        className="settings-input-wrapper"
+                                        style={{ marginBottom: "12px" }}
+                                    >
                                         <input
                                             type="text"
                                             placeholder="Tag (e.g. !gh)"
@@ -218,38 +275,115 @@ export function Settings({
                                             required
                                         />
                                     </div>
-                                    <div className="settings-input-wrapper" style={{ marginBottom: "12px" }}>
+                                    <div
+                                        className="settings-input-wrapper"
+                                        style={{ marginBottom: "12px" }}
+                                    >
                                         <input
                                             type="text"
                                             placeholder="Name (Optional)"
                                             value={cbName}
-                                            onInput={e => setCbName(e.currentTarget.value)}
+                                            onInput={(e) => setCbName(e.currentTarget.value)}
                                             className="settings-input"
                                         />
                                     </div>
-                                    <div className="settings-input-wrapper" style={{ marginBottom: "16px" }}>
+                                    <div
+                                        className="settings-input-wrapper"
+                                        style={{ marginBottom: "16px" }}
+                                    >
                                         <input
                                             type="url"
                                             placeholder="URL (use %s for query)"
                                             value={cbUrl}
-                                            onInput={e => setCbUrl(e.currentTarget.value)}
+                                            onInput={(e) => setCbUrl(e.currentTarget.value)}
                                             className="settings-input"
                                             required
                                         />
                                     </div>
-                                    <button type="submit" style={{ width: "100%", padding: "10px", background: "var(--bg-hover, #eee)", color: "var(--text-title, #131313)", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: 500 }}>Add Bang</button>
+                                    <button
+                                        type="submit"
+                                        style={{
+                                            width: "100%",
+                                            padding: "10px",
+                                            background: "var(--bg-hover, #eee)",
+                                            color: "var(--text-title, #131313)",
+                                            border: "none",
+                                            borderRadius: "8px",
+                                            cursor: "pointer",
+                                            fontWeight: 500
+                                        }}
+                                    >
+                                        Add Bang
+                                    </button>
                                 </form>
 
-                                <div className="custom-bangs-list" style={{ marginTop: "16px", maxHeight: "200px", overflowY: "auto" }}>
-                                    {customBangs.map(bang => (
-                                        <div key={bang.t} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px", background: "var(--bg-active, #252525)", marginBottom: "8px", borderRadius: "8px", border: "1px solid var(--border-main, #2a2a2a)" }}>
-                                            <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-                                                <strong style={{ color: "var(--text-main, #eee)" }}>!{bang.t}</strong> {bang.c && <span style={{ opacity: 0.7, marginLeft: "8px" }}>{bang.c}</span>}
+                                <div
+                                    className="custom-bangs-list"
+                                    style={{
+                                        marginTop: "16px",
+                                        maxHeight: "200px",
+                                        overflowY: "auto"
+                                    }}
+                                >
+                                    {customBangs.map((bang) => (
+                                        <div
+                                            key={bang.t}
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                padding: "12px",
+                                                background: "var(--bg-active, #252525)",
+                                                marginBottom: "8px",
+                                                borderRadius: "8px",
+                                                border: "1px solid var(--border-main, #2a2a2a)"
+                                            }}
+                                        >
+                                            <div
+                                                style={{
+                                                    overflow: "hidden",
+                                                    textOverflow: "ellipsis"
+                                                }}
+                                            >
+                                                <strong style={{ color: "var(--text-main, #eee)" }}>
+                                                    !{bang.t}
+                                                </strong>{" "}
+                                                {bang.c && (
+                                                    <span
+                                                        style={{ opacity: 0.7, marginLeft: "8px" }}
+                                                    >
+                                                        {bang.c}
+                                                    </span>
+                                                )}
                                             </div>
-                                            <button onClick={() => removeCustomBang(bang.t)} style={{ background: "transparent", border: "none", color: "var(--text-muted, #666)", cursor: "pointer", fontSize: "1.2rem", padding: "0 8px" }} aria-label="Remove">×</button>
+                                            <button
+                                                onClick={() => removeCustomBang(bang.t)}
+                                                style={{
+                                                    background: "transparent",
+                                                    border: "none",
+                                                    color: "var(--text-muted, #666)",
+                                                    cursor: "pointer",
+                                                    fontSize: "1.2rem",
+                                                    padding: "0 8px"
+                                                }}
+                                                aria-label="Remove"
+                                            >
+                                                ×
+                                            </button>
                                         </div>
                                     ))}
-                                    {customBangs.length === 0 && <p style={{ opacity: 0.5, fontStyle: "italic", textAlign: "center", padding: "12px" }}>No custom bangs yet.</p>}
+                                    {customBangs.length === 0 && (
+                                        <p
+                                            style={{
+                                                opacity: 0.5,
+                                                fontStyle: "italic",
+                                                textAlign: "center",
+                                                padding: "12px"
+                                            }}
+                                        >
+                                            No custom bangs yet.
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>

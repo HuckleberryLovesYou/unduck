@@ -65,7 +65,6 @@ export function Home(props: HomeProps) {
 
         // Always update last seen to current
         localStorage.setItem("last-seen-version", currentVersion);
-
     }, []);
 
     const handleCloseChangelog = () => {
@@ -80,7 +79,7 @@ export function Home(props: HomeProps) {
                 setShowCopied(true);
                 setTimeout(() => setShowCopied(false), 2000);
             } catch (err) {
-                console.error('Failed to copy text: ', err);
+                console.error("Failed to copy text: ", err);
             }
         }
     };
@@ -88,7 +87,7 @@ export function Home(props: HomeProps) {
     const navigateToSearch = (e: Event) => {
         e.preventDefault();
         history.pushState({}, "", "/searchbar");
-        const navEvent = new PopStateEvent('popstate');
+        const navEvent = new PopStateEvent("popstate");
         window.dispatchEvent(navEvent);
     };
 
@@ -104,7 +103,12 @@ export function Home(props: HomeProps) {
             <div className="homepage-content">
                 <h1 className="homepage-title">Unduck</h1>
                 <p className="homepage-description">
-                    DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser to enable all <a href="https://duckduckgo.com/bang.html" target="_blank" rel="noreferrer">DuckDuckGo's&nbsp;bangs</a>.
+                    DuckDuckGo's bang redirects are too slow. Add the following URL as a custom
+                    search engine to your browser to enable all{" "}
+                    <a href="https://duckduckgo.com/bang.html" target="_blank" rel="noreferrer">
+                        DuckDuckGo's&nbsp;bangs
+                    </a>
+                    .
                 </p>
                 <div className="url-container-wrapper">
                     <div className="url-container">
@@ -118,17 +122,45 @@ export function Home(props: HomeProps) {
                         />
                         <div className="copy-section">
                             <button className="copy-button" title="Copy" onClick={copyUrl}>
-                                <img src={showCopied ? "/clipboard-check-icon.svg" : "/clipboard-icon.svg"} alt="Copy" />
+                                <img
+                                    src={
+                                        showCopied
+                                            ? "/clipboard-check-icon.svg"
+                                            : "/clipboard-icon.svg"
+                                    }
+                                    alt="Copy"
+                                />
                             </button>
-                            <div className="copy-message" hidden={!showCopied} style={{ opacity: showCopied ? 1 : 0, transform: showCopied ? 'translateY(0)' : 'translateY(20px)', display: showCopied ? 'block' : 'none' }}>
+                            <div
+                                className="copy-message"
+                                hidden={!showCopied}
+                                style={{
+                                    opacity: showCopied ? 1 : 0,
+                                    transform: showCopied ? "translateY(0)" : "translateY(20px)",
+                                    display: showCopied ? "block" : "none"
+                                }}
+                            >
                                 <span>Copied!</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="homepage-links">
-                    <p className="searchbar-link">You can also use the !Bangs directly from the <a href="/searchbar" id="searchbar-link" onClick={navigateToSearch}>searchbar</a>.</p>
-                    <a href="https://github.com/HuckleberryLovesYou/unduck#changed-bangs" target="_blank" rel="noreferrer" className="bangs-link">List of changed bangs</a>
+                    <p className="searchbar-link">
+                        You can also use the !Bangs directly from the{" "}
+                        <a href="/searchbar" id="searchbar-link" onClick={navigateToSearch}>
+                            searchbar
+                        </a>
+                        .
+                    </p>
+                    <a
+                        href="https://github.com/HuckleberryLovesYou/unduck#changed-bangs"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="bangs-link"
+                    >
+                        List of changed bangs
+                    </a>
                 </div>
             </div>
 
@@ -159,25 +191,30 @@ export function Home(props: HomeProps) {
                 </span>
             </div>
 
-            <Settings
-                isOpen={showSettings}
-                onClose={() => setShowSettings(false)}
-                {...props}
-            />
+            <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} {...props} />
 
-            <Changelog
-                isOpen={showChangelog}
-                onClose={handleCloseChangelog}
-            />
+            <Changelog isOpen={showChangelog} onClose={handleCloseChangelog} />
 
             <footer className="footer">
-                <a href="https://timmatheis.com" target="_blank" rel="noreferrer">portfolio</a>
+                <a href="https://timmatheis.com" target="_blank" rel="noreferrer">
+                    portfolio
+                </a>
                 <span className="footer-separator">•</span>
-                <a href="https://linktr.ee/HuckleberryLovesYou" target="_blank" rel="noreferrer">linktr.ee</a>
+                <a href="https://linktr.ee/HuckleberryLovesYou" target="_blank" rel="noreferrer">
+                    linktr.ee
+                </a>
                 <span className="footer-separator">•</span>
-                <a href="https://github.com/HuckleberryLovesYou/unduck" target="_blank" rel="noreferrer">Forked Source</a>
+                <a
+                    href="https://github.com/HuckleberryLovesYou/unduck"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Forked Source
+                </a>
                 <span className="footer-separator">•</span>
-                <a href="https://github.com/t3dotgg/unduck" target="_blank" rel="noreferrer">Origin Source</a>
+                <a href="https://github.com/t3dotgg/unduck" target="_blank" rel="noreferrer">
+                    Origin Source
+                </a>
             </footer>
         </div>
     );

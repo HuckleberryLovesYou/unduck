@@ -8,8 +8,12 @@ export function App() {
     const [route, setRoute] = useState(window.location.pathname);
 
     // Settings State
-    const [openInNewTab, setOpenInNewTab] = useState(() => localStorage.getItem("openInNewTab") === "true");
-    const [defaultBang, setDefaultBang] = useState(() => localStorage.getItem("default-bang") || "g");
+    const [openInNewTab, setOpenInNewTab] = useState(
+        () => localStorage.getItem("openInNewTab") === "true"
+    );
+    const [defaultBang, setDefaultBang] = useState(
+        () => localStorage.getItem("default-bang") || "g"
+    );
     const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
     const [customBangs, setCustomBangs] = useState<CustomBang[]>(() => {
         try {
@@ -34,7 +38,9 @@ export function App() {
         const applyTheme = () => {
             let effectiveTheme = theme;
             if (theme === "system") {
-                effectiveTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                effectiveTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
             }
             document.documentElement.setAttribute("data-theme", effectiveTheme);
         };
