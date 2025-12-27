@@ -10,6 +10,8 @@ interface SearchBarProps {
     setDefaultBang: (val: string) => void;
     customBangs: CustomBang[];
     setCustomBangs: (val: CustomBang[]) => void;
+    theme: string;
+    setTheme: (val: string) => void;
 }
 
 export function SearchBar(props: SearchBarProps) {

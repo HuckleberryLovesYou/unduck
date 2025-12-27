@@ -10,6 +10,7 @@ export function App() {
     // Settings State
     const [openInNewTab, setOpenInNewTab] = useState(() => localStorage.getItem("openInNewTab") === "true");
     const [defaultBang, setDefaultBang] = useState(() => localStorage.getItem("default-bang") || "g");
+    const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
     const [customBangs, setCustomBangs] = useState<CustomBang[]>(() => {
         try {
             const stored = localStorage.getItem("custom-bangs");
@@ -27,6 +28,27 @@ export function App() {
     useEffect(() => {
         localStorage.setItem("default-bang", defaultBang);
     }, [defaultBang]);
+
+    useEffect(() => {
+        localStorage.setItem("theme", theme);
+        const applyTheme = () => {
+            let effectiveTheme = theme;
+            if (theme === "system") {
+                effectiveTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-theme", effectiveTheme);
+        };
+
+        applyTheme();
+
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const handleChange = () => {
+            if (theme === "system") applyTheme();
+        };
+
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, [theme]);
 
     useEffect(() => {
         localStorage.setItem("custom-bangs", JSON.stringify(customBangs));
@@ -61,6 +83,8 @@ export function App() {
                 setDefaultBang={setDefaultBang}
                 customBangs={customBangs}
                 setCustomBangs={setCustomBangs}
+                theme={theme}
+                setTheme={setTheme}
             />
         );
     }
@@ -73,6 +97,8 @@ export function App() {
             setDefaultBang={setDefaultBang}
             customBangs={customBangs}
             setCustomBangs={setCustomBangs}
+            theme={theme}
+            setTheme={setTheme}
         />
     );
 }

@@ -16,6 +16,8 @@ interface SettingsProps {
     setDefaultBang: (value: string) => void;
     customBangs: CustomBang[];
     setCustomBangs: (bangs: CustomBang[]) => void;
+    theme: string;
+    setTheme: (val: string) => void;
 }
 
 export function Settings({
@@ -26,7 +28,9 @@ export function Settings({
     defaultBang,
     setDefaultBang,
     customBangs,
-    setCustomBangs
+    setCustomBangs,
+    theme,
+    setTheme
 }: SettingsProps) {
     const [localDefaultBang, setLocalDefaultBang] = useState(defaultBang);
     const [defaultBangError, setDefaultBangError] = useState("");
@@ -139,6 +143,25 @@ export function Settings({
                         {/* ... existing content ... */}
                         <div className="settings-popup-content">
                             <div className="settings-item">
+                                <div className="settings-input-row" style={{ justifyContent: "space-between" }}>
+                                    <label className="settings-label-inline">Theme</label>
+                                    <select
+                                        className="settings-input-inline"
+                                        value={theme}
+                                        onChange={(e) => {
+                                            setTheme(e.currentTarget.value);
+                                            triggerToast("Theme saved");
+                                        }}
+                                        style={{ flex: "0 0 auto", width: "150px", cursor: "pointer" }}
+                                    >
+                                        <option value="dark">Dark</option>
+                                        <option value="light">Light</option>
+                                        <option value="system">System</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="settings-item">
                                 <label className="settings-toggle">
                                     <input
                                         type="checkbox"
@@ -165,7 +188,7 @@ export function Settings({
                                     />
                                     {defaultBangName && <span className="bang-name-in-settings">{defaultBangName}</span>}
                                 </div>
-                                {defaultBangError && <div className="settings-error" style={{ display: "block", color: "#ff4444", marginTop: "4px" }}>{defaultBangError}</div>}
+                                {defaultBangError && <div className="settings-error" style={{ display: "block", color: "var(--error-color, #ff4444)", marginTop: "4px" }}>{defaultBangError}</div>}
                                 <div className="settings-input-hint">Enter a bang tag to use when no bang is specified</div>
                             </div>
 
@@ -201,16 +224,16 @@ export function Settings({
                                             required
                                         />
                                     </div>
-                                    <button type="submit" style={{ width: "100%", padding: "10px", background: "#eee", color: "#131313", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: 500 }}>Add Bang</button>
+                                    <button type="submit" style={{ width: "100%", padding: "10px", background: "var(--bg-hover, #eee)", color: "var(--text-title, #131313)", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: 500 }}>Add Bang</button>
                                 </form>
 
                                 <div className="custom-bangs-list" style={{ marginTop: "16px", maxHeight: "200px", overflowY: "auto" }}>
                                     {customBangs.map(bang => (
-                                        <div key={bang.t} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px", background: "#252525", marginBottom: "8px", borderRadius: "8px", border: "1px solid #2a2a2a" }}>
+                                        <div key={bang.t} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px", background: "var(--bg-active, #252525)", marginBottom: "8px", borderRadius: "8px", border: "1px solid var(--border-main, #2a2a2a)" }}>
                                             <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-                                                <strong style={{ color: "#eee" }}>!{bang.t}</strong> {bang.c && <span style={{ opacity: 0.7, marginLeft: "8px" }}>{bang.c}</span>}
+                                                <strong style={{ color: "var(--text-main, #eee)" }}>!{bang.t}</strong> {bang.c && <span style={{ opacity: 0.7, marginLeft: "8px" }}>{bang.c}</span>}
                                             </div>
-                                            <button onClick={() => removeCustomBang(bang.t)} style={{ background: "transparent", border: "none", color: "#666", cursor: "pointer", fontSize: "1.2rem", padding: "0 8px" }} aria-label="Remove">×</button>
+                                            <button onClick={() => removeCustomBang(bang.t)} style={{ background: "transparent", border: "none", color: "var(--text-muted, #666)", cursor: "pointer", fontSize: "1.2rem", padding: "0 8px" }} aria-label="Remove">×</button>
                                         </div>
                                     ))}
                                     {customBangs.length === 0 && <p style={{ opacity: 0.5, fontStyle: "italic", textAlign: "center", padding: "12px" }}>No custom bangs yet.</p>}

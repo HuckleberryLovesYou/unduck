@@ -7,6 +7,33 @@
 }
 
 :root {
+  /* Colors - Dark (Default) */
+  --bg-main: #131313;
+  --bg-surface-1: #1f1f1f;
+  --bg-surface-2: #1a1a1a;
+  --bg-hover: #2a2a2a;
+  --bg-active: #333;
+
+  --text-main: #eee;
+  --text-title: #fff;
+  --text-muted: #aaa;
+  --text-dim: #666;
+  --text-link: #444;
+  --text-link-hover: #888;
+
+  --border-main: #2a2a2a;
+  --border-focus: #444;
+
+  --toggle-track: #2a2a2a;
+  --toggle-thumb: #666;
+  --toggle-track-checked: #eee;
+  --toggle-thumb-checked: #1f1f1f;
+
+  /* Icons */
+  --icon-filter: invert(0.6);
+  --icon-filter-hover: invert(0.8);
+
+  /* Font defaults */
   font-family: Inter, "Inter Fallback", system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", "Helvetica Neue", sans-serif;
@@ -14,6 +41,32 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="light"] {
+  --bg-main: #f5f5f5;
+  --bg-surface-1: #ffffff;
+  --bg-surface-2: #eaeaea;
+  --bg-hover: #e0e0e0;
+  --bg-active: #d0d0d0;
+
+  --text-main: #1a1a1a;
+  --text-title: #000;
+  --text-muted: #666;
+  --text-dim: #999;
+  --text-link: #666;
+  --text-link-hover: #333;
+
+  --border-main: #d5d5d5;
+  --border-focus: #999;
+
+  --icon-filter: invert(0.3);
+  --icon-filter-hover: invert(0);
+
+  --toggle-track: #d0d0d0;
+  --toggle-thumb: #888;
+  --toggle-track-checked: #1a1a1a;
+  --toggle-thumb-checked: #fff;
 }
 
 /* Global resets */
@@ -32,17 +85,19 @@ body {
 }
 
 body {
-  background: #131313;
-  color: #1a1a1a;
+  background: var(--bg-main);
+  color: var(--text-main);
   line-height: 1.5;
   font-weight: 400;
   font-size: 16px;
   font-family: inherit;
+  transition: background 0.3s, color 0.3s;
 }
 
 #app {
-  background-color: #131313;
+  background-color: var(--bg-main);
   min-height: 100vh;
+  transition: background-color 0.3s;
 }
 
 h1,
@@ -56,13 +111,13 @@ h6 {
 }
 
 a {
-  color: #444;
+  color: var(--text-link);
   text-decoration: underline;
   transition: color 0.2s;
 }
 
 a:hover {
-  color: #888;
+  color: var(--text-link-hover);
 }
 
 /* Forms & buttons inherit font */
@@ -87,8 +142,9 @@ button {
   align-items: center;
   justify-content: center;
   padding: 32px 16px;
-  background: #131313;
-  color: #eee;
+  background: var(--bg-main);
+  color: var(--text-main);
+  transition: background 0.3s, color 0.3s;
 }
 
 .homepage-content {
@@ -101,27 +157,27 @@ button {
   font-size: 4rem;
   font-weight: 700;
   margin-bottom: 24px;
-  color: #fff;
+  color: var(--text-title);
   letter-spacing: -0.02em;
 }
 
 .homepage-description {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: #aaa;
+  color: var(--text-muted);
   margin-bottom: 32px;
 }
 
 .homepage-description a {
-  color: #fff;
+  color: var(--text-title);
   text-decoration: underline;
-  text-decoration-color: #666;
+  text-decoration-color: var(--text-dim);
   transition: text-decoration-color 0.2s, color 0.2s;
 }
 
 .homepage-description a:hover {
-  color: #fff;
-  text-decoration-color: #aaa;
+  color: var(--text-title);
+  text-decoration-color: var(--text-muted);
 }
 
 .url-container-wrapper {
@@ -132,15 +188,15 @@ button {
   display: flex;
   align-items: center;
   gap: 0;
-  background: #1f1f1f;
+  background: var(--bg-surface-1);
   border-radius: 12px;
   padding: 4px;
-  border: 1px solid #2a2a2a;
-  transition: border-color 0.2s;
+  border: 1px solid var(--border-main);
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .url-container:focus-within {
-  border-color: #444;
+  border-color: var(--border-focus);
 }
 
 .url-input {
@@ -149,7 +205,7 @@ button {
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: #eee;
+  color: var(--text-main);
   font-size: 1rem;
   font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
   font-style: normal;
@@ -174,7 +230,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  color: #aaa;
+  color: var(--text-muted);
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
   cursor: pointer;
@@ -184,20 +240,20 @@ button {
 .copy-button img {
   width: 18px;
   height: 18px;
-  filter: invert(0.6);
+  filter: var(--icon-filter);
   transition: filter 0.2s;
 }
 
 .copy-button:hover {
-  background: #2a2a2a;
+  background: var(--bg-hover);
 }
 
 .copy-button:hover img {
-  filter: invert(0.8);
+  filter: var(--icon-filter-hover);
 }
 
 .copy-button:active {
-  background: #333;
+  background: var(--bg-active);
 }
 
 .copy-message {
@@ -205,7 +261,7 @@ button {
   left: calc(100% + 12px);
   white-space: nowrap;
   font-size: 0.875rem;
-  color: #aaa;
+  color: var(--text-muted);
   opacity: 0;
   transform: translateX(-8px);
   transition: opacity 0.2s, transform 0.2s;
@@ -230,31 +286,31 @@ button {
 
 .searchbar-link {
   font-size: 0.9375rem;
-  color: #888;
+  color: var(--text-link-hover);
 }
 
 .searchbar-link a {
-  color: #fff;
+  color: var(--text-title);
   text-decoration: underline;
-  text-decoration-color: #666;
+  text-decoration-color: var(--text-dim);
   transition: text-decoration-color 0.2s;
 }
 
 .searchbar-link a:hover {
-  text-decoration-color: #aaa;
+  text-decoration-color: var(--text-muted);
 }
 
 .bangs-link {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-dim);
   text-decoration: underline;
-  text-decoration-color: #444;
+  text-decoration-color: var(--text-link);
   transition: color 0.2s, text-decoration-color 0.2s;
 }
 
 .bangs-link:hover {
-  color: #aaa;
-  text-decoration-color: #666;
+  color: var(--text-muted);
+  text-decoration-color: var(--text-dim);
 }
 
 .footer {
@@ -264,26 +320,26 @@ button {
   right: 0;
   text-align: center;
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-dim);
   z-index: 10;
 }
 
 .footer a {
-  color: #666;
+  color: var(--text-dim);
   text-decoration: underline;
-  text-decoration-color: #444;
+  text-decoration-color: var(--text-link);
   transition: color 0.2s, text-decoration-color 0.2s;
   font-weight: 400;
 }
 
 .footer a:hover {
-  color: #aaa;
-  text-decoration-color: #666;
+  color: var(--text-muted);
+  text-decoration-color: var(--text-dim);
 }
 
 .footer-separator {
   margin: 0 8px;
-  color: #444;
+  color: var(--text-link);
 }
 
 /* Homepage settings button */
@@ -293,9 +349,9 @@ button {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #1f1f1f;
+  background: var(--bg-surface-1);
   border: none;
-  color: #bbb;
+  color: var(--text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -306,8 +362,8 @@ button {
 }
 
 .homepage-settings-button:hover {
-  background: #2a2a2a;
-  color: #fff;
+  background: var(--bg-hover);
+  color: var(--text-title);
   transform: scale(1.05);
 }
 
@@ -318,12 +374,12 @@ button {
 .homepage-settings-button .icon {
   width: 20px;
   height: 20px;
-  filter: invert(0.7);
+  filter: var(--icon-filter);
   transition: filter 0.2s;
 }
 
 .homepage-settings-button:hover .icon {
-  filter: invert(1);
+  filter: var(--icon-filter-hover);
 }
 
 /* Settings input fields */
@@ -331,7 +387,7 @@ button {
   display: block;
   font-size: 0.9375rem;
   font-weight: 500;
-  color: #eee;
+  color: var(--text-main);
   margin-bottom: 8px;
 }
 
@@ -344,10 +400,10 @@ button {
 .settings-input {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-main);
   border-radius: 8px;
-  background: #1a1a1a;
-  color: #eee;
+  background: var(--bg-surface-2);
+  color: var(--text-main);
   font-size: 0.9375rem;
   font-family: 'Courier New', monospace;
   transition: border-color 0.2s, background 0.2s;
@@ -355,12 +411,12 @@ button {
 
 .settings-input:focus {
   outline: none;
-  border-color: #444;
-  background: #1f1f1f;
+  border-color: var(--border-focus);
+  background: var(--bg-surface-1);
 }
 
 .settings-input::placeholder {
-  color: #666;
+  color: var(--text-dim);
 }
 
 /* Inline input row */
@@ -375,7 +431,7 @@ button {
 .settings-label-inline {
   font-size: 0.9375rem;
   font-weight: 500;
-  color: #eee;
+  color: var(--text-main);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -384,10 +440,10 @@ button {
   flex: 1;
   min-width: 0;
   padding: 8px 12px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-main);
   border-radius: 6px;
-  background: #1f1f1f;
-  color: #eee;
+  background: var(--bg-surface-1);
+  color: var(--text-main);
   font-size: 0.875rem;
   font-family: 'Courier New', monospace;
   transition: border-color 0.2s, background 0.2s;
@@ -395,30 +451,30 @@ button {
 
 .settings-input-inline:focus {
   outline: none;
-  border-color: #444;
-  background: #252525;
+  border-color: var(--border-focus);
+  background: var(--bg-surface-2);
 }
 
 .settings-input-inline::placeholder {
-  color: #666;
+  color: var(--text-dim);
 }
 
 .settings-input-hint {
   font-size: 0.8125rem;
-  color: #888;
+  color: var(--text-link-hover);
   line-height: 1.4;
 }
 
 .settings-error {
   font-size: 0.8125rem;
-  color: #aaa;
+  color: var(--text-muted);
   line-height: 1.4;
   margin-top: 2px;
 }
 
 .bang-name-in-settings {
   font-size: 0.8125rem;
-  color: #888;
+  color: var(--text-link-hover);
   margin-left: 8px;
   font-style: italic;
 }
@@ -430,8 +486,8 @@ button {
   bottom: 80px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: #1f1f1f;
-  color: #eee;
+  background: var(--bg-surface-1);
+  color: var(--text-main);
   padding: 12px 24px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -440,7 +496,7 @@ button {
   opacity: 0;
   transition: opacity 0.3s, transform 0.3s;
   pointer-events: none;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-main);
 }
 
 .toast.visible {
@@ -457,8 +513,8 @@ button {
   justify-content: center;
   position: relative;
   padding: 32px 16px;
-  background: #131313;
-  color: #eee;
+  background: var(--bg-main);
+  color: var(--text-main);
 }
 
 .search-page-content {
@@ -471,7 +527,7 @@ button {
   font-size: 4rem;
   font-weight: 700;
   margin-bottom: 32px;
-  color: #fff;
+  color: var(--text-title);
   letter-spacing: -0.02em;
 }
 
@@ -488,7 +544,7 @@ button {
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.9375rem;
-  color: #aaa;
+  color: var(--text-muted);
   font-weight: 500;
   white-space: nowrap;
   pointer-events: none;
@@ -504,15 +560,15 @@ button {
   display: flex;
   align-items: center;
   gap: 0;
-  background: #1f1f1f;
+  background: var(--bg-surface-1);
   border-radius: 12px;
   padding: 4px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-main);
   transition: border-color 0.2s;
 }
 
 .search-box-container:focus-within {
-  border-color: #444;
+  border-color: var(--border-focus);
 }
 
 .search-box-container input {
@@ -521,7 +577,7 @@ button {
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: #eee;
+  color: var(--text-main);
   font-size: 1rem;
 }
 
@@ -534,7 +590,7 @@ button {
   background: transparent;
   border: none;
   font-size: 1.25rem;
-  color: #aaa;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 10px;
   transition: color 0.2s, background 0.2s;
@@ -546,20 +602,20 @@ button {
 }
 
 .icon-button:hover {
-  color: #fff;
-  background: #2a2a2a;
+  color: var(--text-title);
+  background: var(--bg-hover);
 }
 
 .icon-button .icon {
   width: 18px;
   height: 18px;
   display: block;
-  filter: invert(0.6);
+  filter: var(--icon-filter);
   transition: filter 0.2s;
 }
 
 .icon-button:hover .icon {
-  filter: invert(0.8);
+  filter: var(--icon-filter-hover);
 }
 
 .search-icon {
@@ -578,7 +634,7 @@ button {
   padding: 8px;
   border-radius: 50%;
   font-size: 1.5rem;
-  color: #bbb;
+  color: var(--text-muted);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -590,14 +646,14 @@ button {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: #1f1f1f;
+  background: var(--bg-surface-1);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 10;
   margin-top: 4px;
   overflow: hidden;
   display: none;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-main);
 }
 
 .history-dropdown button {
@@ -607,7 +663,7 @@ button {
   padding: 12px 16px;
   border: none;
   background: none;
-  color: #eee;
+  color: var(--text-main);
   cursor: pointer;
   transition: background 0.2s;
   font-size: 1rem;
@@ -615,7 +671,7 @@ button {
 
 .history-dropdown button:hover,
 .history-dropdown button.selected {
-  background: #2a2a2a;
+  background: var(--bg-hover);
 }
 
 .history-dropdown button:first-child {
@@ -636,9 +692,9 @@ button {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #1f1f1f;
+  background: var(--bg-surface-1);
   border: none;
-  color: #bbb;
+  color: var(--text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -649,8 +705,8 @@ button {
 }
 
 .settings-button:hover {
-  background: #2a2a2a;
-  color: #fff;
+  background: var(--bg-hover);
+  color: var(--text-title);
   transform: scale(1.05);
 }
 
@@ -661,12 +717,12 @@ button {
 .settings-button .icon {
   width: 20px;
   height: 20px;
-  filter: invert(0.7);
+  filter: var(--icon-filter);
   transition: filter 0.2s;
 }
 
 .settings-button:hover .icon {
-  filter: invert(1);
+  filter: var(--icon-filter-hover);
 }
 
 /* Settings overlay */
@@ -690,7 +746,7 @@ button {
   width: 90%;
   max-width: 500px;
   max-height: 80vh;
-  background: #1f1f1f;
+  background: var(--bg-surface-1);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   z-index: 300;
@@ -704,13 +760,13 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border-main);
 }
 
 .settings-popup-header h2 {
   margin: 0;
   font-size: 1.5rem;
-  color: #eee;
+  color: var(--text-main);
   font-weight: 600;
 }
 
@@ -720,7 +776,7 @@ button {
   border-radius: 50%;
   background: transparent;
   border: none;
-  color: #bbb;
+  color: var(--text-muted);
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
@@ -731,8 +787,8 @@ button {
 }
 
 .settings-close:hover {
-  background: #2a2a2a;
-  color: #fff;
+  background: var(--bg-hover);
+  color: var(--text-title);
 }
 
 .settings-popup-content {
@@ -743,9 +799,9 @@ button {
 .settings-item {
   margin-bottom: 16px;
   padding: 16px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-main);
   border-radius: 8px;
-  background: #1a1a1a;
+  background: var(--bg-surface-2);
 }
 
 .settings-item:last-child {
@@ -769,7 +825,7 @@ button {
   position: relative;
   width: 48px;
   height: 24px;
-  background: #2a2a2a;
+  background: var(--toggle-track);
   border-radius: 12px;
   transition: background 0.2s;
   flex-shrink: 0;
@@ -782,22 +838,22 @@ button {
   left: 2px;
   width: 20px;
   height: 20px;
-  background: #666;
+  background: var(--toggle-thumb);
   border-radius: 50%;
   transition: transform 0.2s, background 0.2s;
 }
 
 .settings-toggle input[type="checkbox"]:checked+.settings-toggle-slider {
-  background: #eee;
+  background: var(--toggle-track-checked);
 }
 
 .settings-toggle input[type="checkbox"]:checked+.settings-toggle-slider::before {
   transform: translateX(24px);
-  background: #1f1f1f;
+  background: var(--toggle-thumb-checked);
 }
 
 .settings-toggle-label {
-  color: #eee;
+  color: var(--text-main);
   font-size: 1rem;
   flex: 1;
 }
@@ -816,7 +872,7 @@ button {
 /* Changelog Button */
 .changelog-button {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-dim);
   font-weight: 500;
   transition: color 0.2s;
   background: transparent;
@@ -826,13 +882,13 @@ button {
 }
 
 .changelog-button:hover {
-  color: #eee;
+  color: var(--text-main);
 }
 
 /* Version Text */
 .version-text {
   font-size: 0.8125rem;
-  color: #666;
+  color: var(--text-dim);
   /* Very subtle, darker than regular text */
   font-family: 'Courier New', monospace;
   user-select: none;
@@ -841,9 +897,9 @@ button {
 }
 
 .version-text:hover {
-  color: #eee;
+  color: var(--text-main);
   text-decoration: underline;
-  text-decoration-color: #444;
+  text-decoration-color: var(--text-link);
 }
 
 /* Changelog Popup specific styles */
@@ -859,7 +915,7 @@ button {
 .changelog-entry {
   margin-bottom: 24px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border-main);
 }
 
 .changelog-entry:last-child {
@@ -877,80 +933,36 @@ button {
 
 .changelog-title {
   font-size: 1.125rem;
-  color: #eee;
+  color: var(--text-main);
   font-weight: 600;
   margin: 0;
 }
 
 .changelog-date {
   font-size: 0.8125rem;
-  color: #666;
+  color: var(--text-dim);
   font-family: 'Courier New', monospace;
 }
 
 .changelog-version {
   font-size: 0.75rem;
-  background: #2a2a2a;
-  color: #eee;
+  background: var(--bg-hover);
+  color: var(--text-main);
   padding: 2px 6px;
   border-radius: 4px;
   font-family: 'Courier New', monospace;
-  border: 1px solid #333;
+  border: 1px solid var(--bg-active);
 }
 
 .changelog-description {
   font-size: 0.9375rem;
-  color: #aaa;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
 
 
-/* Dark mode overrides */
-@media (prefers-color-scheme: dark) {
-  body {
-    color: #ddd;
-  }
-
-  #app {
-    background-color: #131313;
-  }
-
-  a {
-    color: #a9a9a9;
-  }
-
-  a:hover {
-    color: #888;
-  }
-
-  .footer,
-  .footer a {
-    color: #999;
-  }
-
-  .footer a:hover {
-    color: #ccc;
-  }
-
-  .url-input {
-    border-color: #3d3d3d;
-    background-color: #191919;
-    color: #fff;
-  }
-
-  .copy-button:hover {
-    background: #222;
-  }
-
-  .copy-button:active {
-    background: #333;
-  }
-
-  .copy-button img {
-    filter: invert(1);
-  }
-}
+/* Dark mode overrides removed - using CSS variables */
 
 /* Responsive font sizes */
 @media (max-width: 768px) {
