@@ -40,7 +40,7 @@ Now you can use it just like DuckDuckGo!
 -   Type `!w rust lang` -> Redirects to Wikipedia.
 -   Type `cats` -> Searches Google (or your configured default).
 
-### Changed Bangs (In this Fork)
+### Changed Bangs
 
 This fork includes several custom bang overrides for better utility:
 
