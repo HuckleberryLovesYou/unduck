@@ -2979,7 +2979,8 @@ export const bangs: Bang[] = [
   ["doco", "DonationCoder", "www.donationcoder.com", "http://www.donationcoder.com/forum/index.php?action=search2&search={{{s}}} "],
   ["docsrs", "Docs.rs", "docs.rs", "https://docs.rs/releases/search?query={{{s}}}"],
   ["docs.rs", "docs.rs", "docs.rs", "https://docs.rs/releases/search?query={{{s}}}"],
-  ["docs", "Scribd.com", "www.scribd.com", "http://www.scribd.com/search?query={{{s}}}"],
+  // Replaced with docs.timmatheis.com
+  // ["docs", "Scribd.com", "www.scribd.com", "http://www.scribd.com/search?query={{{s}}}"],
   ["docs.splunk", "Splunk Docs", "docs.splunk.com", "https://docs.splunk.com/Special:SplunkSearch/docs?q={{{s}}}"],
   ["doctrine", "Doctrine.fr", "www.doctrine.fr", "https://www.doctrine.fr/?q={{{s}}}"],
   ["docubufr", "Documentation Ubuntu-fr", "duckduckgo.com", "https://duckduckgo.com/?q={{{s}}}+site%3Adoc.ubuntu-fr.org"],
@@ -4499,8 +4500,8 @@ export const bangs: Bang[] = [
   ["geller", "Bienenzuchtbedarf Geller", "bienenzuchtbedarf-geller.de", "https://bienenzuchtbedarf-geller.de/shop/search?sSearch={{{s}}}"],
   ["gematria", "Gematrix", "www.gematrix.org", "https://www.gematrix.org/?word={{{s}}}"],
   ["gematsu", "Gematsu", "gematsu.com", "https://gematsu.com/?s={{{s}}}"],
-  ["gem", "RubyGems", "rubygems.org", "https://rubygems.org/search?utf8=%E2%9C%93&query={{{s}}}"],
-  ["gems", "RubyGems", "rubygems.org", "http://rubygems.org/search?query={{{s}}}"],
+  // Bang for gemini is "gem". See extensionBang.ts
+  ["gems", "RubyGems", "rubygems.org", "https://rubygems.org/search?query={{{s}}}"],
   ["gemug", "GeMUG", "www.gemug.ge", "http://www.gemug.ge/?s={{{s}}}"],
   ["genbank", "GenBank Database", "www.ncbi.nlm.nih.gov", "http://www.ncbi.nlm.nih.gov/nuccore/?term={{{s}}}"],
   ["gender", "Gender Wiki", "gender.wikia.com", "http://gender.wikia.com/search?query={{{s}}}"],
