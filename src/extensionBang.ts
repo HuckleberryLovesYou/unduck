@@ -1,5 +1,6 @@
 import { Bang } from "./bang";
 
 export const extensionBangs: Bang[] = [
-    ["gemini", "Gemini", "gemini.google.com", "https://gemini.google.com/app?unduck={{{s}}}"]
+    ["gem", "Gemini", "gemini.google.com", "https://gemini.google.com/app?unduck={{{s}}}"],
+    ["docs", "Documentation", "docs.timmatheis.com", "https://docs.timmatheis.com/Home?unduck={{{s}}}"]
 ];
