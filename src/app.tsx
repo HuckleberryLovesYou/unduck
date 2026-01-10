@@ -2,7 +2,27 @@ import { useState, useEffect } from "preact/hooks";
 import { Home } from "./components/Home";
 import { SearchBar } from "./components/SearchBar";
 import { CustomBang } from "./components/Settings";
+import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
 import { getBangRedirectUrl } from "./lib/utils";
+
+const EXTENSION_IDS = [
+    "laaojgpjpjeffdldondgbgilkniganio", // Dev ID
+    // "prod_id_here" // Todo: Add Prod ID
+];
+
+async function checkExtensionInstalled(): Promise<boolean> {
+    for (const id of EXTENSION_IDS) {
+        try {
+            const response = await fetch(`chrome-extension://${id}/icons/icon128.png`);
+            if (response.ok) {
+                return true;
+            }
+        } catch (e) {
+            // Ignore error (not installed)
+        }
+    }
+    return false;
+}
 
 export function App() {
     const [route, setRoute] = useState(window.location.pathname);
@@ -24,6 +44,15 @@ export function App() {
         }
     });
 
+    // Extension State
+    const [needsExtension, setNeedsExtension] = useState(false);
+    const [pendingRedirect, setPendingRedirect] = useState<string | null>(null);
+    const [dontShowAgain, setDontShowAgain] = useState(false);
+    
+    // Tracks if we have already verified the extension is present in this session
+    // Initializing with false implies we must check before trusting.
+    // However, for speed, checking on every redirect is what was requested.
+    
     // Save Settings
     useEffect(() => {
         localStorage.setItem("openInNewTab", openInNewTab.toString());
@@ -72,12 +101,76 @@ export function App() {
     const url = new URL(window.location.href);
     const query = url.searchParams.get("q")?.trim();
 
-    if (query) {
+    // Handle Redirects
+    useEffect(() => {
+        if (!query) return;
+
         const redirectUrl = getBangRedirectUrl(query, defaultBang, customBangs);
-        if (redirectUrl) {
+        if (!redirectUrl) return;
+
+        // Check if this is an extension-requiring URL
+        if (redirectUrl.includes("?unduck=")) {
+            const skipCheck = localStorage.getItem("unduck-skip-extension-check") === "true";
+            
+            if (skipCheck) {
+                 const cleanUrl = redirectUrl.split("?")[0];
+                 window.location.replace(cleanUrl);
+                 return;
+            }
+
+            // Perform async check
+            checkExtensionInstalled().then((isInstalled) => {
+                if (isInstalled) {
+                    window.location.replace(redirectUrl);
+                } else {
+                    setPendingRedirect(redirectUrl);
+                    setNeedsExtension(true);
+                }
+            });
+            
+        } else {
             window.location.replace(redirectUrl);
-            return null;
         }
+    }, [query, defaultBang, customBangs]);
+    
+    // Polling only when modal is open
+    useEffect(() => {
+        if (!needsExtension || !pendingRedirect) return;
+        
+        const poll = setInterval(async () => {
+            const isInstalled = await checkExtensionInstalled();
+            if (isInstalled) {
+                window.location.replace(pendingRedirect);
+            }
+        }, 1000);
+        
+        return () => clearInterval(poll);
+    }, [needsExtension, pendingRedirect]);
+
+
+    if (query && !needsExtension) {
+         // If query exists and we aren't showing the modal, we are redirecting (returning null) or waiting for async check
+         // We should probably return null to show nothing/white screen while checking
+         return null;
+    }
+
+
+    if (needsExtension && pendingRedirect) {
+        const skipRedirect = () => {
+            if (dontShowAgain) {
+                localStorage.setItem("unduck-skip-extension-check", "true");
+            }
+            const cleanUrl = pendingRedirect.split("?")[0];
+            window.location.replace(cleanUrl);
+        };
+
+        return (
+            <ExtensionRequiredModal
+                onSkip={skipRedirect}
+                dontShowAgain={dontShowAgain}
+                setDontShowAgain={setDontShowAgain}
+            />
+        );
     }
 
     if (route.startsWith("/searchbar")) {

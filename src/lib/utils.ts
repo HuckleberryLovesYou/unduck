@@ -1,4 +1,5 @@
 import { bangs } from "../bang";
+import { extensionBangs } from "../extensionBang";
 import { CustomBang } from "../components/Settings";
 
 export function getBangRedirectUrl(
@@ -16,7 +17,15 @@ export function getBangRedirectUrl(
         return customBang.u.replace("%s", encodeURIComponent(cleanQuery).replace(/%2F/g, "/"));
     }
 
-    // 2. Check Standard Bangs
+    // 2. Check Extension Bangs
+    const extensionBang = bangCandidate ? extensionBangs.find((b) => b[0] === bangCandidate) : null;
+    if (extensionBang) {
+        const cleanQuery = query.replace(/!\S+\s*/i, "").trim();
+        if (cleanQuery === "") return `https://${extensionBang[2]}`;
+        return extensionBang[3].replace("{{{s}}}", encodeURIComponent(cleanQuery));
+    }
+
+    // 3. Check Standard Bangs
     const defaultBang =
         bangs.find((b) => b[0] === defaultBangTag) ??
         (customBangs.find((b) => b.t === defaultBangTag)
