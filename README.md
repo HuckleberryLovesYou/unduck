@@ -50,12 +50,15 @@ This fork includes several custom bang overrides for better utility:
 | `!html`  | `!h`       | A [simple DDG Search Engine](https://html.duckduckgo.com/html/).                |
 | `!g`     | `!g`       | Google Search ('Web' mode `&udm=14` by default).                                |
 | `!ai`    | `!duckai`  | Renamed original !ai to !duckai.                                                |
-| None     | `!ai`      | [ChatGPT](https://chatgpt.com) (Default AI bang).                               |
-| None     | `!grok`    | [Grok](https://grok.com).                                                       |
+| None     | `!ai`      | Added [ChatGPT](https://chatgpt.com).                                           |
+| None     | `!grok`    | Addedd [Grok](https://grok.com).                                                |
 | -        | -          | Fixed Google Maps (`.../search/...` path).                                      |
 | `nix`    | `nix`      | Fixed NixOS Wiki domain.                                                        |
 | None     | `grepcode` | Added [Grep.app](https://grep.app/).                                            |
 | None     | `modr`     | Added [Modrinth](https://modrinth.com/).                                        |
+| None     | `gem`      | Added [Gemini](https://gemini.google.com). (Extension required)                 |
+| `docs`   | None     | Removed [Scribd.com](www.scribd.com).                                             |
+| None     | `docs`     | Added [Docs](https://docs.timmatheis.com). (Extension required)                 |
 
 ## 🤝 Credits
 
