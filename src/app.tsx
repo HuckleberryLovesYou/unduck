@@ -6,7 +6,8 @@ import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
 import { getBangRedirectUrl } from "./lib/utils";
 
 const EXTENSION_IDS = [
-    "laaojgpjpjeffdldondgbgilkniganio", // Dev ID
+    "laaojgpjpjeffdldondgbgilkniganio",
+    "gpddcoiceldlimofbmclpackfojmjmfo"
     // "prod_id_here" // Todo: Add Prod ID
 ];
 
@@ -48,11 +49,11 @@ export function App() {
     const [needsExtension, setNeedsExtension] = useState(false);
     const [pendingRedirect, setPendingRedirect] = useState<string | null>(null);
     const [dontShowAgain, setDontShowAgain] = useState(false);
-    
+
     // Tracks if we have already verified the extension is present in this session
     // Initializing with false implies we must check before trusting.
     // However, for speed, checking on every redirect is what was requested.
-    
+
     // Save Settings
     useEffect(() => {
         localStorage.setItem("openInNewTab", openInNewTab.toString());
@@ -111,11 +112,11 @@ export function App() {
         // Check if this is an extension-requiring URL
         if (redirectUrl.includes("?unduck=")) {
             const skipCheck = localStorage.getItem("unduck-skip-extension-check") === "true";
-            
+
             if (skipCheck) {
-                 const cleanUrl = redirectUrl.split("?")[0];
-                 window.location.replace(cleanUrl);
-                 return;
+                const cleanUrl = redirectUrl.split("?")[0];
+                window.location.replace(cleanUrl);
+                return;
             }
 
             // Perform async check
@@ -127,33 +128,28 @@ export function App() {
                     setNeedsExtension(true);
                 }
             });
-            
         } else {
             window.location.replace(redirectUrl);
         }
     }, [query, defaultBang, customBangs]);
-    
+
     // Polling only when modal is open
     useEffect(() => {
         if (!needsExtension || !pendingRedirect) return;
-        
+
         const poll = setInterval(async () => {
             const isInstalled = await checkExtensionInstalled();
             if (isInstalled) {
                 window.location.replace(pendingRedirect);
             }
         }, 1000);
-        
+
         return () => clearInterval(poll);
     }, [needsExtension, pendingRedirect]);
 
-
     if (query && !needsExtension) {
-         // If query exists and we aren't showing the modal, we are redirecting (returning null) or waiting for async check
-         // We should probably return null to show nothing/white screen while checking
-         return null;
+        // If query exists and we aren't showing the modal, we are redirecting (returning null) or waiting for async check        return null;
     }
-
 
     if (needsExtension && pendingRedirect) {
         const skipRedirect = () => {
