@@ -1,4 +1,4 @@
-export const currentVersion = "v0.2.3";
+export const currentVersion = "v0.2.4";
 
 export interface ChangelogEntry {
     date: string;
@@ -9,10 +9,17 @@ export interface ChangelogEntry {
 
 export const changelogData: ChangelogEntry[] = [
     {
+        date: "2026-01-10",
+        title: "Changes for upcomming unduck-extension",
+        description:
+            "Created dependencies, compatibility changes and added the modal for the upcomming unduck-extension.",
+        version: "v0.2.4"
+    },
+    {
         date: "2025-12-27",
         title: "Font Change",
         description:
-            "Changed the font to a more modern font fo.",
+            "Changed the font to a more modern font.",
         version: "v0.2.3"
     },
     {
