@@ -5,24 +5,8 @@ import { CustomBang } from "./components/Settings";
 import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
 import { getBangRedirectUrl } from "./lib/utils";
 
-const EXTENSION_IDS = [
-    "laaojgpjpjeffdldondgbgilkniganio",
-    "gpddcoiceldlimofbmclpackfojmjmfo"
-    // "prod_id_here" // Todo: Add Prod ID
-];
-
-async function checkExtensionInstalled(): Promise<boolean> {
-    for (const id of EXTENSION_IDS) {
-        try {
-            const response = await fetch(`chrome-extension://${id}/icons/icon128.png`);
-            if (response.ok) {
-                return true;
-            }
-        } catch (e) {
-            // Ignore error (not installed)
-        }
-    }
-    return false;
+function checkExtensionInstalled(): Promise<boolean> {
+    return Promise.resolve(!!document.getElementById("__unduck_extension_installed__"));
 }
 
 export function App() {
