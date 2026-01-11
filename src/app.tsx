@@ -132,7 +132,8 @@ export function App() {
     }, [needsExtension, pendingRedirect]);
 
     if (query && !needsExtension) {
-        // If query exists and we aren't showing the modal, we are redirecting (returning null) or waiting for async check        return null;
+        // If query exists and we aren't showing the modal, we are redirecting (returning null) or waiting for async check
+        return null;
     }
 
     if (needsExtension && pendingRedirect) {
