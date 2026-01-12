@@ -2,6 +2,8 @@ import { useState, useEffect } from "preact/hooks";
 import { Home } from "./components/Home";
 import { SearchBar } from "./components/SearchBar";
 import { CustomBang } from "./components/Settings";
+import { PrivacyPolicy } from "./components/PrivacyPolicy";
+import { PrivacyPolicyExtension } from "./components/PrivacyPolicyExtension";
 import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
 import { getBangRedirectUrl } from "./lib/utils";
 
@@ -167,6 +169,12 @@ export function App() {
                 setTheme={setTheme}
             />
         );
+    }
+
+    if (route === "/privacy-policy") {
+        return <PrivacyPolicy />;
+    } else if (route === "/privacy-policy-extension") {
+        return <PrivacyPolicyExtension />;
     }
 
     return (
