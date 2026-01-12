@@ -2212,6 +2212,7 @@ export const bangs: Bang[] = [
   ["coop_fr", "Coop (FR)", "www.coop.ch", "http://www.coop.ch/pb/site/search/search/2057/Lfr/index.html?qs={{{s}}}&fr=coop2012&SuchButton.x=0&SuchButton.y=0&search=search&backend=backend_coop2012&la=fr&_sid=2fae98df-7f08-49a8-86b5-38148b71ebdb"],
   ["coop_it", "Coop (IT)", "www.coop.ch", "http://www.coop.ch/pb/site/search/search/2057/Lit/index.html?qs={{{s}}}&fr=coop2012&SuchButton.x=0&SuchButton.y=0&search=search&backend=backend_coop2012&la=it&_sid=537d493c-9c35-41dc-8881-d878b57e702f"],
   ["coop_se", "Coop Sweden", "www.coop.se", "https://www.coop.se/Sok/Receptsok/{{{s}}}"],
+  // Added copilot.microsoft.com in extensionBang.ts as !cop
   ["cop2usd", "Xe.com", "www.xe.com", "http://www.xe.com/currencyconverter/convert/?From=COP&To=USD&Amount={{{s}}}"],
   ["copac", "COPAC", "copac.ac.uk", "http://copac.ac.uk/search?&title={{{s}}}"],
   ["coppermind", "The Coppermind", "coppermind.net", "http://coppermind.net/wiki/Special:Search?search={{{s}}}"],
