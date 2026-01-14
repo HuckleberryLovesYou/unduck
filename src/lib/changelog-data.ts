@@ -1,4 +1,4 @@
-export const currentVersion = "v0.2.4";
+export const currentVersion = "v0.2.5";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,13 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2026-01-13",
+        title: "Dynamic browser detection for extension modal",
+        description:
+            "Added dynamic browser detection for extension modal if the extension is not installed.",
+        version: "v0.2.5"
+    },
     {
         date: "2026-01-10",
         title: "Changes for upcomming unduck-extension",
