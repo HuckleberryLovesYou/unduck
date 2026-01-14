@@ -76,3 +76,17 @@ export function isMajorOrMinorUpdate(oldVersion: string, newVersion: string): bo
 
     return false;
 }
+
+export type BrowserType = "chrome" | "firefox";
+
+export function getBrowserType(): BrowserType {
+    if (typeof navigator === "undefined") return "chrome";
+
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    if (userAgent.indexOf("firefox") > -1) {
+        return "firefox";
+    }
+
+    return "chrome";
+}

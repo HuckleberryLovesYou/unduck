@@ -1,4 +1,5 @@
 import { FunctionalComponent } from "preact";
+import { getBrowserType } from "../lib/utils";
 
 interface ExtensionRequiredModalProps {
     onSkip: () => void;
@@ -11,6 +12,12 @@ export const ExtensionRequiredModal: FunctionalComponent<ExtensionRequiredModalP
     dontShowAgain,
     setDontShowAgain
 }) => {
+    const browserType = getBrowserType();
+    const extensionLink =
+        browserType === "firefox"
+            ? "https://addons.mozilla.org/en-US/firefox/addon/unduck-helper/"
+            : "https://chrome.google.com/webstore/detail/unduck-helper/INSERT_ID_HERE"; //TODO: Add Chrome extension ID
+
     return (
         <div className="settings-overlay">
             <div className="settings-popup">
@@ -20,24 +27,21 @@ export const ExtensionRequiredModal: FunctionalComponent<ExtensionRequiredModalP
 
                 <div className="settings-popup-content extension-modal-content">
                     <p className="extension-modal-text">
-                        This site doesn't support searching via URL directly.
-                        To autofill your query, you need the <strong>Unduck Helper</strong> extension.
+                        This site doesn't support searching via URL directly. To autofill your
+                        query, you need the <strong>Unduck Helper</strong> extension.
                     </p>
 
                     <div className="extension-modal-actions">
                         <a
-                            href="#" // Replace with actual store link later
+                            href={extensionLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="extension-install-btn"
                         >
-                            Install Extension
+                            {browserType === "firefox" ? "Get Add-on for Firefox" : "Get Add-on for Chrome"}
                         </a>
-                        
-                        <button
-                            onClick={onSkip}
-                            className="extension-skip-btn"
-                        >
+
+                        <button onClick={onSkip} className="extension-skip-btn">
                             Skip (Open without Query)
                         </button>
                     </div>
@@ -50,10 +54,7 @@ export const ExtensionRequiredModal: FunctionalComponent<ExtensionRequiredModalP
                             onChange={(e) => setDontShowAgain(e.currentTarget.checked)}
                             className="extension-checkbox"
                         />
-                        <label
-                            htmlFor="dontShow"
-                            className="extension-checkbox-label"
-                        >
+                        <label htmlFor="dontShow" className="extension-checkbox-label">
                             Don't show again
                         </label>
                     </div>
