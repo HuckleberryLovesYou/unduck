@@ -10,7 +10,7 @@ export interface ChangelogEntry {
 export const changelogData: ChangelogEntry[] = [
     {
         date: "2026-01-13",
-        title: "Dynamic browser detection for extension modal",
+        title: "Dynamic browser detection for extension",
         description:
             "Added dynamic browser detection for extension modal if the extension is not installed.",
         version: "v0.2.5"
