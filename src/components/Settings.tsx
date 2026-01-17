@@ -32,7 +32,7 @@ export function Settings({
     theme,
     setTheme
 }: SettingsProps) {
-    const [localDefaultBang, setLocalDefaultBang] = useState(defaultBang);
+    const [localDefaultBang, setLocalDefaultBang] = useState("!" + defaultBang);
     const [defaultBangError, setDefaultBangError] = useState("");
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("Settings saved");
@@ -44,7 +44,7 @@ export function Settings({
 
     useEffect(() => {
         if (isOpen) {
-            setLocalDefaultBang(defaultBang);
+            setLocalDefaultBang("!" + defaultBang);
             setDefaultBangError("");
         }
     }, [defaultBang, isOpen]);
@@ -69,36 +69,25 @@ export function Settings({
         }, 50);
     };
 
-    const handleClose = () => {
-        if (defaultBangError) {
-            triggerToast("Please fix errors first");
+    const validateAndSetDefaultBang = (rawValue: string) => {
+        setLocalDefaultBang(rawValue);
+
+        if (!rawValue.startsWith("!")) {
+            setDefaultBangError("Must start with !");
             return;
         }
-        onClose();
-    };
 
-    const validateAndSetDefaultBang = (rawValue: string) => {
-        // Ensure starts with ! for display
-        let displayValue = rawValue;
-        if (!displayValue.startsWith("!")) {
-            displayValue = "!" + displayValue;
-        }
-
-        // Logic value (remove !)
-        const tag = displayValue.substring(1);
-        setLocalDefaultBang(tag);
-
+        const tag = rawValue.substring(1);
         const trimmed = tag.trim().toLowerCase();
 
-        // Allow empty to just be "!" or empty string in logic -> resets to google
         if (!trimmed) {
-            setDefaultBang("g");
-            setDefaultBangError("");
+            setDefaultBangError("Bang tag cannot be empty");
             return;
         }
 
         const exists =
             bangs.some((b) => b[0] === trimmed) || customBangs.some((b) => b.t === trimmed);
+
         if (!exists) {
             setDefaultBangError(`Bang "!${trimmed}" not found`);
         } else {
@@ -142,18 +131,16 @@ export function Settings({
     };
 
     const defaultBangName =
-        bangs.find((b) => b[0] === localDefaultBang)?.[1] ||
-        customBangs.find((b) => b.t === localDefaultBang)?.c ||
-        (customBangs.find((b) => b.t === localDefaultBang) ? "!" + localDefaultBang : undefined);
+        bangs.find((b) => b[0] === localDefaultBang.replace(/^!/, ""))?.[1] ||
+        customBangs.find((b) => b.t === localDefaultBang.replace(/^!/, ""))?.c ||
+        (customBangs.find((b) => b.t === localDefaultBang.replace(/^!/, ""))
+            ? localDefaultBang
+            : undefined);
 
     return (
         <>
             {isOpen && (
-                <div
-                    className="settings-overlay"
-                    onClick={handleClose}
-                    style={{ display: "block" }}
-                >
+                <div className="settings-overlay" onClick={onClose} style={{ display: "block" }}>
                     <div
                         className="settings-popup"
                         onClick={(e) => e.stopPropagation()}
@@ -163,7 +150,7 @@ export function Settings({
                             <h2>Settings</h2>
                             <button
                                 className="settings-close"
-                                onClick={handleClose}
+                                onClick={onClose}
                                 aria-label="Close settings"
                             >
                                 ×
@@ -223,7 +210,7 @@ export function Settings({
                                         type="text"
                                         id="default-bang-input"
                                         className="settings-input-inline"
-                                        value={"!" + localDefaultBang}
+                                        value={localDefaultBang}
                                         onInput={(e) =>
                                             validateAndSetDefaultBang(e.currentTarget.value)
                                         }
