@@ -33,12 +33,24 @@
     --icon-filter: invert(0.6);
     --icon-filter-hover: invert(0.8);
 
-    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
-        monospace;
+    --font-mono:
+        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
     /* Font defaults */
-    font-family: Inter, "Inter Fallback", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family:
+        Inter,
+        "Inter Fallback",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -93,7 +105,9 @@ body {
     font-weight: 400;
     font-size: 16px;
     font-family: inherit;
-    transition: background 0.3s, color 0.3s;
+    transition:
+        background 0.3s,
+        color 0.3s;
 }
 
 #app {
@@ -136,6 +150,25 @@ button {
     cursor: pointer;
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-hover);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-focus);
+}
+
 /* Homepage */
 .homepage {
     min-height: 100vh;
@@ -146,7 +179,9 @@ button {
     padding: 32px 16px;
     background: var(--bg-main);
     color: var(--text-main);
-    transition: background 0.3s, color 0.3s;
+    transition:
+        background 0.3s,
+        color 0.3s;
 }
 
 .homepage-content {
@@ -174,7 +209,9 @@ button {
     color: var(--text-title);
     text-decoration: underline;
     text-decoration-color: var(--text-dim);
-    transition: text-decoration-color 0.2s, color 0.2s;
+    transition:
+        text-decoration-color 0.2s,
+        color 0.2s;
 }
 
 .homepage-description a:hover {
@@ -194,7 +231,9 @@ button {
     border-radius: 12px;
     padding: 4px;
     border: 1px solid var(--border-main);
-    transition: border-color 0.2s, background 0.2s;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
 }
 
 .url-container:focus-within {
@@ -234,7 +273,9 @@ button {
     padding: 10px;
     color: var(--text-muted);
     border-radius: 8px;
-    transition: background 0.2s, color 0.2s;
+    transition:
+        background 0.2s,
+        color 0.2s;
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -266,7 +307,9 @@ button {
     color: var(--text-muted);
     opacity: 0;
     transform: translateX(-8px);
-    transition: opacity 0.2s, transform 0.2s;
+    transition:
+        opacity 0.2s,
+        transform 0.2s;
     pointer-events: none;
 }
 
@@ -307,7 +350,9 @@ button {
     color: var(--text-dim);
     text-decoration: underline;
     text-decoration-color: var(--text-link);
-    transition: color 0.2s, text-decoration-color 0.2s;
+    transition:
+        color 0.2s,
+        text-decoration-color 0.2s;
 }
 
 .bangs-link:hover {
@@ -330,7 +375,9 @@ button {
     color: var(--text-dim);
     text-decoration: underline;
     text-decoration-color: var(--text-link);
-    transition: color 0.2s, text-decoration-color 0.2s;
+    transition:
+        color 0.2s,
+        text-decoration-color 0.2s;
     font-weight: 400;
 }
 
@@ -358,7 +405,10 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, color 0.2s, transform 0.2s;
+    transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s;
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -408,7 +458,9 @@ button {
     color: var(--text-main);
     font-size: 0.9375rem;
     font-family: var(--font-mono);
-    transition: border-color 0.2s, background 0.2s;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
 }
 
 .settings-input:focus {
@@ -448,7 +500,9 @@ button {
     color: var(--text-main);
     font-size: 0.875rem;
     font-family: var(--font-mono);
-    transition: border-color 0.2s, background 0.2s;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
 }
 
 .settings-input-inline:focus {
@@ -495,7 +549,9 @@ button {
     font-size: 0.9375rem;
     z-index: 1000;
     opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
+    transition:
+        opacity 0.3s,
+        transform 0.3s;
     pointer-events: none;
     border: 1px solid var(--border-main);
 }
@@ -595,7 +651,9 @@ button {
     color: var(--text-muted);
     cursor: pointer;
     padding: 10px;
-    transition: color 0.2s, background 0.2s;
+    transition:
+        color 0.2s,
+        background 0.2s;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -640,7 +698,9 @@ button {
     background: transparent;
     border: none;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition:
+        background 0.2s,
+        color 0.2s;
 }
 
 .history-dropdown {
@@ -701,7 +761,10 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, color 0.2s, transform 0.2s;
+    transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s;
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -785,7 +848,9 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, color 0.2s;
+    transition:
+        background 0.2s,
+        color 0.2s;
 }
 
 .settings-close:hover {
@@ -795,7 +860,10 @@ button {
 
 .settings-popup-content {
     padding: 24px;
-    flex: 1;
+    flex: 1; /* Keep flex to fill if parent has fixed height in future */
+    overflow-y: auto;
+    min-height: 0;
+    max-height: calc(80vh - 80px); /* Robust fallback for scroll */
 }
 
 .settings-item {
@@ -842,7 +910,9 @@ button {
     height: 20px;
     background: var(--toggle-thumb);
     border-radius: 50%;
-    transition: transform 0.2s, background 0.2s;
+    transition:
+        transform 0.2s,
+        background 0.2s;
 }
 
 .settings-toggle input[type="checkbox"]:checked + .settings-toggle-slider {
@@ -1107,7 +1177,9 @@ button {
     color: var(--text-muted);
     cursor: pointer;
     border: 1px solid transparent;
-    transition: color 0.2s, background 0.2s;
+    transition:
+        color 0.2s,
+        background 0.2s;
 }
 
 .extension-skip-btn:hover {
