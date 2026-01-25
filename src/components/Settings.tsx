@@ -307,9 +307,7 @@ export function Settings({
                                 <div
                                     className="custom-bangs-list"
                                     style={{
-                                        marginTop: "16px",
-                                        maxHeight: "200px",
-                                        overflowY: "auto"
+                                        marginTop: "16px"
                                     }}
                                 >
                                     {customBangs.map((bang) => (
