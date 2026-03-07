@@ -75,14 +75,6 @@ export function Home() {
                         </a>
                         .
                     </p>
-                    <a
-                        href="https://github.com/HuckleberryLovesYou/unduck#changed-bangs"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="bangs-link"
-                    >
-                        List of changed bangs
-                    </a>
                 </div>
             </div>
         </div>
