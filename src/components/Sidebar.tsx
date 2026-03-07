@@ -94,7 +94,6 @@ export function Sidebar(props: SidebarProps) {
         if (showNewBadge) {
             setShowNewBadge(false);
         }
-        closeSidebarOnMobile();
     };
 
     const navigateToSearch = (e: Event) => {
@@ -160,7 +159,6 @@ export function Sidebar(props: SidebarProps) {
                         className="sidebar-link"
                         onClick={() => {
                             setShowChangelog(true);
-                            closeSidebarOnMobile();
                         }}
                     >
                         <FileDescriptionIcon className="sidebar-icon" />
