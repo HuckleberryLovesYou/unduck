@@ -25,6 +25,11 @@ export function Home() {
         window.dispatchEvent(navEvent);
     };
 
+    const navigateToSettings = (e: Event) => {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent("open-settings"));
+    };
+
     return (
         <div className="homepage">
             <div className="homepage-content">
@@ -72,7 +77,11 @@ export function Home() {
                         <a href="/searchbar" id="searchbar-link" onClick={navigateToSearch}>
                             searchbar
                         </a>
-                        ,<br /> or configure the behavior of unduck in the settings.
+                        ,<br /> or configure the behavior of unduck in the{" "}
+                        <a href="#" id="settings-link" onClick={navigateToSettings}>
+                            settings
+                        </a>
+                        .
                     </p>
                 </div>
             </div>

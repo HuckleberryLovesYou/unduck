@@ -37,6 +37,18 @@ export function Sidebar(props: SidebarProps) {
         }
     }, []);
 
+    // Global toggle for Settings
+    useEffect(() => {
+        const handleOpenSettings = () => {
+            setShowSettings(true);
+            if (showArrow) {
+                setShowArrow(false);
+            }
+        };
+        window.addEventListener("open-settings", handleOpenSettings);
+        return () => window.removeEventListener("open-settings", handleOpenSettings);
+    }, [showArrow]);
+
     // Smart Changelog Logic
     useEffect(() => {
         const visitCount = parseInt(localStorage.getItem("visit-count") || "0", 10) + 1;
