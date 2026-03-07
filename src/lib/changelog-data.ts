@@ -1,4 +1,4 @@
-export const currentVersion = "v0.3.2";
+export const currentVersion = "v0.3.3";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,13 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2026-03-07",
+        title: "Small Fixes",
+        description:
+            "Added some links, change an icon, fixed typos and centered the url bar.",
+        version: "v0.3.3"
+    },
     {
         date: "2026-03-07",
         title: "Added Copy Icon Animation",
