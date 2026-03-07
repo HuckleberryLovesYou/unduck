@@ -78,6 +78,12 @@ export function Sidebar(props: SidebarProps) {
         localStorage.setItem("last-seen-version", currentVersion);
     }, []);
 
+    const closeSidebarOnMobile = () => {
+        if (window.innerWidth <= 767) {
+            setIsOpen(false);
+        }
+    };
+
     const handleCloseChangelog = () => {
         setShowChangelog(false);
         localStorage.setItem("closed-popup-version", currentVersion);
@@ -88,6 +94,7 @@ export function Sidebar(props: SidebarProps) {
         if (showNewBadge) {
             setShowNewBadge(false);
         }
+        closeSidebarOnMobile();
     };
 
     const navigateToSearch = (e: Event) => {
@@ -95,6 +102,7 @@ export function Sidebar(props: SidebarProps) {
         history.pushState({}, "", "/searchbar");
         const navEvent = new PopStateEvent("popstate");
         window.dispatchEvent(navEvent);
+        closeSidebarOnMobile();
     };
 
     return (
@@ -120,6 +128,7 @@ export function Sidebar(props: SidebarProps) {
                             e.preventDefault();
                             history.pushState({}, "", "/");
                             window.dispatchEvent(new PopStateEvent("popstate"));
+                            closeSidebarOnMobile();
                         }}
                     >
                         <HomeIcon className="sidebar-icon" />
@@ -141,12 +150,19 @@ export function Sidebar(props: SidebarProps) {
                             e.preventDefault();
                             history.pushState({}, "", "/changed-bangs");
                             window.dispatchEvent(new PopStateEvent("popstate"));
+                            closeSidebarOnMobile();
                         }}
                     >
                         <FileDescriptionIcon className="sidebar-icon" />
                         Changed !Bangs
                     </a>
-                    <button className="sidebar-link" onClick={() => setShowChangelog(true)}>
+                    <button
+                        className="sidebar-link"
+                        onClick={() => {
+                            setShowChangelog(true);
+                            closeSidebarOnMobile();
+                        }}
+                    >
                         <FileDescriptionIcon className="sidebar-icon" />
                         Changelog
                     </button>

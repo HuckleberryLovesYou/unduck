@@ -333,8 +333,10 @@ main {
     .sidebar {
         width: 100%;
     }
-    .sidebar-toggle {
-        display: none; /* Hide toggle on mobile full-screen sidebar */
+    .sidebar-toggle.open {
+        right: 24px;
+        border-radius: 12px;
+        border-left: 1px solid var(--border-main);
     }
 }
 
