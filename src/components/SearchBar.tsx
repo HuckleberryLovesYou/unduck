@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "preact/hooks";
-import { Settings, CustomBang } from "./Settings";
+import { CustomBang } from "./Settings";
 import { bangs, Bang } from "../bang";
 import { getBangRedirectUrl } from "../lib/utils";
+import { SearchIcon } from "./SearchIcon";
 
 interface SearchBarProps {
     openInNewTab: boolean;
@@ -16,7 +17,6 @@ interface SearchBarProps {
 
 export function SearchBar(props: SearchBarProps) {
     const [query, setQuery] = useState("");
-    const [showSettings, setShowSettings] = useState(false);
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [bangMatches, setBangMatches] = useState<Bang[]>([]);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -139,23 +139,14 @@ export function SearchBar(props: SearchBarProps) {
         }
     };
 
-    const goBack = () => {
-        history.pushState({}, "", "/");
-        window.dispatchEvent(new PopStateEvent("popstate"));
-    };
-
     return (
         <div className="search-page">
-            <button className="back-button" title="Back" onClick={goBack}>
-                ←
-            </button>
-
             <div className="search-page-content">
                 <h1 className="search-page-title">Unduck</h1>
                 <div className="search-box-wrapper">
                     <div className="search-box-container">
                         <button className="icon-button search-icon" onClick={() => doSearch()}>
-                            <img src="/search-icon.svg" alt="Search" className="icon" />
+                            <SearchIcon className="icon" />
                         </button>
                         <input
                             ref={inputRef}
@@ -218,12 +209,6 @@ export function SearchBar(props: SearchBarProps) {
                     </div>
                 </div>
             </div>
-
-            <button className="settings-button" onClick={() => setShowSettings(true)}>
-                <img src="/settings-icon.svg" alt="Settings" className="icon" />
-            </button>
-
-            <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} {...props} />
         </div>
     );
 }

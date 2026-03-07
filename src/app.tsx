@@ -5,6 +5,8 @@ import { CustomBang } from "./components/Settings";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { PrivacyPolicyExtension } from "./components/PrivacyPolicyExtension";
 import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
+import { Sidebar } from "./components/Sidebar";
+import { ChangedBangs } from "./components/ChangedBangs";
 import { getBangRedirectUrl } from "./lib/utils";
 
 function checkExtensionInstalled(): Promise<boolean> {
@@ -156,8 +158,9 @@ export function App() {
         );
     }
 
+    let content;
     if (route.startsWith("/searchbar")) {
-        return (
+        content = (
             <SearchBar
                 openInNewTab={openInNewTab}
                 setOpenInNewTab={setOpenInNewTab}
@@ -169,24 +172,29 @@ export function App() {
                 setTheme={setTheme}
             />
         );
-    }
-
-    if (route === "/privacy-policy") {
-        return <PrivacyPolicy />;
+    } else if (route === "/privacy-policy") {
+        content = <PrivacyPolicy />;
     } else if (route === "/privacy-policy-extension") {
-        return <PrivacyPolicyExtension />;
+        content = <PrivacyPolicyExtension />;
+    } else if (route === "/changed-bangs") {
+        content = <ChangedBangs />;
+    } else {
+        content = <Home />;
     }
 
     return (
-        <Home
-            openInNewTab={openInNewTab}
-            setOpenInNewTab={setOpenInNewTab}
-            defaultBang={defaultBang}
-            setDefaultBang={setDefaultBang}
-            customBangs={customBangs}
-            setCustomBangs={setCustomBangs}
-            theme={theme}
-            setTheme={setTheme}
-        />
+        <div className="app-container">
+            <Sidebar
+                openInNewTab={openInNewTab}
+                setOpenInNewTab={setOpenInNewTab}
+                defaultBang={defaultBang}
+                setDefaultBang={setDefaultBang}
+                customBangs={customBangs}
+                setCustomBangs={setCustomBangs}
+                theme={theme}
+                setTheme={setTheme}
+            />
+            <main>{content}</main>
+        </div>
     );
 }
