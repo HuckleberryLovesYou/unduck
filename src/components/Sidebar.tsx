@@ -26,14 +26,14 @@ export function Sidebar(props: SidebarProps) {
     const [showSettings, setShowSettings] = useState(false);
     const [showChangelog, setShowChangelog] = useState(false);
 
-    // Onboarding Arrow Logic
-    const [showArrow, setShowArrow] = useState(false);
+    // New Badge Logic
+    const [showNewBadge, setShowNewBadge] = useState(false);
 
     useEffect(() => {
-        const arrowSeen = localStorage.getItem("settings-arrow-seen");
-        if (!arrowSeen) {
-            setShowArrow(true);
-            localStorage.setItem("settings-arrow-seen", "true");
+        const badgeSeen = localStorage.getItem("settings-badge-seen");
+        if (!badgeSeen) {
+            setShowNewBadge(true);
+            localStorage.setItem("settings-badge-seen", "true");
         }
     }, []);
 
@@ -41,13 +41,13 @@ export function Sidebar(props: SidebarProps) {
     useEffect(() => {
         const handleOpenSettings = () => {
             setShowSettings(true);
-            if (showArrow) {
-                setShowArrow(false);
+            if (showNewBadge) {
+                setShowNewBadge(false);
             }
         };
         window.addEventListener("open-settings", handleOpenSettings);
         return () => window.removeEventListener("open-settings", handleOpenSettings);
-    }, [showArrow]);
+    }, [showNewBadge]);
 
     // Smart Changelog Logic
     useEffect(() => {
@@ -85,8 +85,8 @@ export function Sidebar(props: SidebarProps) {
 
     const handleSettingsClick = () => {
         setShowSettings(true);
-        if (showArrow) {
-            setShowArrow(false);
+        if (showNewBadge) {
+            setShowNewBadge(false);
         }
     };
 
@@ -132,7 +132,7 @@ export function Sidebar(props: SidebarProps) {
                     <button className="sidebar-link" onClick={handleSettingsClick}>
                         <GearIcon className="sidebar-icon" />
                         Settings
-                        {showArrow && <span className="settings-badge">New</span>}
+                        {showNewBadge && <span className="settings-badge">New</span>}
                     </button>
                     <a
                         href="/changed-bangs"
