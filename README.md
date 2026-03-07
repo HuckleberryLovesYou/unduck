@@ -44,7 +44,7 @@ Now you can use it just like DuckDuckGo!
 
 This fork includes several custom bang overrides for better utility.
 
-**[View the complete list of changed bangs directly in the app](/changed-bangs)**
+**[View the complete list of changed bangs directly in the app](https://search.timmatheis.com/changed-bangs)**
 
 ## 🤝 Credits
 
