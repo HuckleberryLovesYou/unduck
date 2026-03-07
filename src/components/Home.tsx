@@ -29,10 +29,10 @@ export function Home() {
             <div className="homepage-content">
                 <h1 className="homepage-title">Unduck</h1>
                 <p className="homepage-description">
-                    DuckDuckGo's bang redirects are too slow. Add the following URL as a custom
+                    DuckDuckGo's !Bang redirects are too slow. Add the following URL as a custom
                     search engine to your browser to enable all{" "}
                     <a href="https://duckduckgo.com/bang.html" target="_blank" rel="noreferrer">
-                        DuckDuckGo's&nbsp;bangs
+                        DuckDuckGo's&nbsp;!Bangs
                     </a>
                     .
                 </p>

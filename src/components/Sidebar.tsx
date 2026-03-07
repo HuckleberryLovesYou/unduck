@@ -132,7 +132,7 @@ export function Sidebar(props: SidebarProps) {
                         }}
                     >
                         <FileDescriptionIcon className="sidebar-icon" />
-                        Changed bangs
+                        Changed !Bangs
                     </a>
                     <button className="sidebar-link" onClick={() => setShowChangelog(true)}>
                         <FileDescriptionIcon className="sidebar-icon" />
