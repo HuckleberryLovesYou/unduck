@@ -472,6 +472,7 @@ button {
     font-size: 1rem;
     font-family: var(--font-mono);
     font-style: normal;
+    text-align: center;
 }
 
 .url-input:focus {
@@ -519,29 +520,6 @@ button {
 
 .copy-button:active {
     background: var(--bg-active);
-}
-
-.copy-message {
-    position: absolute;
-    left: calc(100% + 12px);
-    white-space: nowrap;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    opacity: 0;
-    transform: translateX(-8px);
-    transition:
-        opacity 0.2s,
-        transform 0.2s;
-    pointer-events: none;
-}
-
-.copy-message:not([hidden]) {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.copy-message span {
-    display: inline-block;
 }
 
 .homepage-links {

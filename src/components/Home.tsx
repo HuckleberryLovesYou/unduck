@@ -53,17 +53,6 @@ export function Home() {
                                     style={{ width: "18px", height: "18px" }}
                                 />
                             </button>
-                            <div
-                                className="copy-message"
-                                hidden={!showCopied}
-                                style={{
-                                    opacity: showCopied ? 1 : 0,
-                                    transform: showCopied ? "translateY(0)" : "translateY(20px)",
-                                    display: showCopied ? "block" : "none"
-                                }}
-                            >
-                                <span>Copied!</span>
-                            </div>
                         </div>
                     </div>
                 </div>
