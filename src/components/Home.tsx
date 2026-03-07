@@ -73,7 +73,7 @@ export function Home() {
                         <a href="/searchbar" id="searchbar-link" onClick={navigateToSearch}>
                             searchbar
                         </a>
-                        .
+                        ,<br /> or configure the behavior of unduck in the settings.
                     </p>
                 </div>
             </div>
