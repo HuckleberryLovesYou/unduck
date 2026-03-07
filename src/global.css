@@ -1531,6 +1531,40 @@ button {
     user-select: none;
 }
 
+/* Animated Copy Icon */
+
+.front-copy {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animated-copy-icon:hover .front-copy {
+    animation: copyBounce 0.5s ease-in-out;
+}
+
+@keyframes copyBounce {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(2px, 2px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.copy-check {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: checkDraw 0.3s ease-out forwards;
+}
+
+@keyframes checkDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
 /* Changed Bangs Page */
 .changed-bangs-page {
     min-height: 100vh;
@@ -1707,6 +1741,14 @@ button {
 .bang-external-icon {
     width: 20px;
     height: 20px;
+}
+
+.bang-card-link:hover .external-arrow {
+    transform: translate(2px, -2px);
+}
+
+.bang-card-link:hover .external-box {
+    stroke: var(--text-title);
 }
 
 .bang-copied-message {

@@ -1,4 +1,5 @@
 import { useRef, useState } from "preact/hooks";
+import { CopyIcon } from "./CopyIcon";
 
 export function Home() {
     const [showCopied, setShowCopied] = useState(false);
@@ -47,13 +48,9 @@ export function Home() {
                         />
                         <div className="copy-section">
                             <button className="copy-button" title="Copy" onClick={copyUrl}>
-                                <img
-                                    src={
-                                        showCopied
-                                            ? "/clipboard-check-icon.svg"
-                                            : "/clipboard-icon.svg"
-                                    }
-                                    alt="Copy"
+                                <CopyIcon
+                                    isCopied={showCopied}
+                                    style={{ width: "18px", height: "18px" }}
                                 />
                             </button>
                             <div

@@ -47,7 +47,10 @@ export function ChangedBangs() {
                                         title="Copy bang"
                                     >
                                         <span>{bang.changed}</span>
-                                        <CopyIcon className="bang-copy-icon" />
+                                        <CopyIcon
+                                            className="bang-copy-icon"
+                                            isCopied={copiedIndex === index}
+                                        />
                                     </button>
                                 ) : (
                                     <span className="bang-none" title="No replacement bang">
