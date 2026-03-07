@@ -1,4 +1,4 @@
-export const currentVersion = "v0.2.5";
+export const currentVersion = "v0.3.2";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,27 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2026-03-07",
+        title: "Added Copy Icon Animation",
+        description:
+            "Added a new animation for the copy icon.",
+        version: "v0.3.2"
+    },
+    {
+        date: "2026-03-07",
+        title: "New Changed Bangs Site",
+        description:
+            "Added a new site for changed bangs.",
+        version: "v0.3.1"
+    },
+    {
+        date: "2026-03-07",
+        title: "New Navigation Sidebar",
+        description:
+            "Added a new navigation sidebar with links to Home, Searchbar, Changed Bangs, Settings, and Changelog.",
+        version: "v0.3.0"
+    },
     {
         date: "2026-01-13",
         title: "Dynamic browser detection for extension",
