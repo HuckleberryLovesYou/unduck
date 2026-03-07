@@ -1,5 +1,6 @@
 import { useRef, useState } from "preact/hooks";
 import { CopyIcon } from "./CopyIcon";
+import { ExternalLinkIcon } from "./ExternalLinkIcon";
 
 export function Home() {
     const [showCopied, setShowCopied] = useState(false);
@@ -34,6 +35,15 @@ export function Home() {
                     <a href="https://duckduckgo.com/bang.html" target="_blank" rel="noreferrer">
                         DuckDuckGo's&nbsp;!Bangs
                     </a>
+                    <ExternalLinkIcon
+                        style={{
+                            width: "14px",
+                            height: "14px",
+                            marginLeft: "4px",
+                            marginBottom: "4px",
+                            marginRight: "-2px"
+                        }}
+                    />
                     .
                 </p>
                 <div className="url-container-wrapper">
