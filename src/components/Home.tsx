@@ -29,6 +29,13 @@ export function Home() {
         window.dispatchEvent(new CustomEvent("open-settings"));
     };
 
+    const navigateToBangs = (e: Event) => {
+        e.preventDefault();
+        history.pushState({}, "", "/bangs");
+        const navEvent = new PopStateEvent("popstate");
+        window.dispatchEvent(navEvent);
+    };
+
     return (
         <div className="homepage">
             <div className="homepage-content">
@@ -36,7 +43,7 @@ export function Home() {
                 <p className="homepage-description">
                     DuckDuckGo's !Bang redirects are too slow. Add the following URL as a custom
                     search engine to your browser to enable all{" "}
-                    <a href="/bangs" target="_blank" rel="noreferrer">
+                    <a href="/bangs" onClick={navigateToBangs}>
                         !Bangs
                     </a>
                     .
