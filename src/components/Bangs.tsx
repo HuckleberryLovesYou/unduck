@@ -174,7 +174,7 @@ export function Bangs({ customBangs = [] }: BangsProps) {
     return (
         <div className="bangs-page">
             <div className="bangs-header">
-                <h1 className="bangs-title">!Bangs Search</h1>
+                <h1 className="bangs-title">Find !Bangs</h1>
                 <p className="bangs-description">
                     Fuzzy search through {allBangs.length.toLocaleString()} available !Bangs.
                 </p>

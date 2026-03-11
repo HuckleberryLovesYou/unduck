@@ -1,6 +1,5 @@
 import { useRef, useState } from "preact/hooks";
 import { CopyIcon } from "./CopyIcon";
-import { ExternalLinkIcon } from "./ExternalLinkIcon";
 
 export function Home() {
     const [showCopied, setShowCopied] = useState(false);
@@ -37,18 +36,9 @@ export function Home() {
                 <p className="homepage-description">
                     DuckDuckGo's !Bang redirects are too slow. Add the following URL as a custom
                     search engine to your browser to enable all{" "}
-                    <a href="https://duckduckgo.com/bang.html" target="_blank" rel="noreferrer">
-                        DuckDuckGo's&nbsp;!Bangs
+                    <a href="/bangs" target="_blank" rel="noreferrer">
+                        !Bangs
                     </a>
-                    <ExternalLinkIcon
-                        style={{
-                            width: "14px",
-                            height: "14px",
-                            marginLeft: "4px",
-                            marginBottom: "4px",
-                            marginRight: "-2px"
-                        }}
-                    />
                     .
                 </p>
                 <div className="url-container-wrapper">
