@@ -152,8 +152,8 @@ export function Sidebar(props: SidebarProps) {
                             closeSidebarOnMobile();
                         }}
                     >
-                        <SearchIcon className="sidebar-icon" />
-                        !Bangs
+                        <FileDescriptionIcon className="sidebar-icon" />
+                        Find !Bangs
                     </a>
                     <a
                         href="/changed-bangs"
