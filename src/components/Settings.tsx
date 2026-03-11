@@ -205,7 +205,7 @@ export function Settings({
                                         className="settings-label-inline"
                                         htmlFor="default-bang-input"
                                     >
-                                        Default Bang
+                                        Default !Bang
                                     </label>
                                     <input
                                         type="text"
@@ -238,7 +238,7 @@ export function Settings({
                                     </div>
                                 )}
                                 <div className="settings-input-hint">
-                                    Enter a bang tag to use when no bang is specified
+                                    Enter a !Bang tag to use when no !Bang is specified
                                 </div>
                             </div>
 
@@ -248,12 +248,12 @@ export function Settings({
                                         className="settings-label"
                                         style={{ marginBottom: 0, fontSize: "1rem" }}
                                     >
-                                        Custom Bangs
+                                        Custom !Bangs
                                     </h3>
                                     <div className="info-tooltip-container">
                                         <InfoIcon />
                                         <div className="info-tooltip-text">
-                                            Custom bangs let you set your own shortcut for any URL parameter based search. Use <span style="font-family: monospace">%s</span> as a placeholder for the search query.<br /><br />e.g.: https://www.google.com/search?q=<span style="font-family: monospace">%s</span>
+                                            Custom !Bangs let you set your own shortcut for any URL parameter based search. Use <span style="font-family: monospace">%s</span> as a placeholder for the search query.<br /><br />e.g.: https://www.google.com/search?q=<span style="font-family: monospace">%s</span>
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +289,7 @@ export function Settings({
                                     >
                                         <input
                                             type="url"
-                                            placeholder="URL (e.g. https://www.google.com/search?q=%s)"
+                                            placeholder="URL (use %s for search query)"
                                             value={cbUrl}
                                             onInput={(e) => setCbUrl(e.currentTarget.value)}
                                             className="settings-input"
@@ -309,7 +309,7 @@ export function Settings({
                                             fontWeight: 500
                                         }}
                                     >
-                                        Add Bang
+                                        Add !Bang
                                     </button>
                                 </form>
 
@@ -375,7 +375,7 @@ export function Settings({
                                                 padding: "12px"
                                             }}
                                         >
-                                            No custom bangs yet.
+                                            No custom !Bangs yet.
                                         </p>
                                     )}
                                 </div>
