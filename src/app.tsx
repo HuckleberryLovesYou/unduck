@@ -7,6 +7,7 @@ import { PrivacyPolicyExtension } from "./components/PrivacyPolicyExtension";
 import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
 import { Sidebar } from "./components/Sidebar";
 import { ChangedBangs } from "./components/ChangedBangs";
+import { Bangs } from "./components/Bangs";
 import { getBangRedirectUrl } from "./lib/utils";
 
 function checkExtensionInstalled(): Promise<boolean> {
@@ -178,6 +179,8 @@ export function App() {
         content = <PrivacyPolicyExtension />;
     } else if (route === "/changed-bangs") {
         content = <ChangedBangs />;
+    } else if (route === "/bangs") {
+        content = <Bangs customBangs={customBangs} />;
     } else {
         content = <Home />;
     }

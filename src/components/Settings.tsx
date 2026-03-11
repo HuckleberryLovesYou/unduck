@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "preact/hooks";
-import { bangs } from "../bang";
 import { InfoIcon } from "./InfoIcon";
 
 export interface CustomBang {
@@ -82,19 +81,12 @@ export function Settings({
         const trimmed = tag.trim().toLowerCase();
 
         if (!trimmed) {
-            setDefaultBangError("Bang tag cannot be empty");
+            setDefaultBangError("!Bang tag cannot be empty");
             return;
         }
 
-        const exists =
-            bangs.some((b) => b[0] === trimmed) || customBangs.some((b) => b.t === trimmed);
-
-        if (!exists) {
-            setDefaultBangError(`Bang "!${trimmed}" not found`);
-        } else {
-            setDefaultBangError("");
-            setDefaultBang(trimmed);
-        }
+        setDefaultBangError("");
+        setDefaultBang(trimmed);
     };
 
     const handleCbTagInput = (e: any) => {
@@ -131,12 +123,6 @@ export function Settings({
         triggerToast("Setting saved");
     };
 
-    const defaultBangName =
-        bangs.find((b) => b[0] === localDefaultBang.replace(/^!/, ""))?.[1] ||
-        customBangs.find((b) => b.t === localDefaultBang.replace(/^!/, ""))?.c ||
-        (customBangs.find((b) => b.t === localDefaultBang.replace(/^!/, ""))
-            ? localDefaultBang
-            : undefined);
 
     return (
         <>
@@ -219,11 +205,6 @@ export function Settings({
                                         placeholder="!g"
                                         maxLength={50}
                                     />
-                                    {defaultBangName && (
-                                        <span className="bang-name-in-settings">
-                                            {defaultBangName}
-                                        </span>
-                                    )}
                                 </div>
                                 {defaultBangError && (
                                     <div

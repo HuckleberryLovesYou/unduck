@@ -143,6 +143,19 @@ export function Sidebar(props: SidebarProps) {
                         {showNewBadge && <span className="settings-badge">New</span>}
                     </button>
                     <a
+                        href="/bangs"
+                        className="sidebar-link"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            history.pushState({}, "", "/bangs");
+                            window.dispatchEvent(new PopStateEvent("popstate"));
+                            closeSidebarOnMobile();
+                        }}
+                    >
+                        <SearchIcon className="sidebar-icon" />
+                        !Bangs
+                    </a>
+                    <a
                         href="/changed-bangs"
                         className="sidebar-link"
                         onClick={(e) => {
