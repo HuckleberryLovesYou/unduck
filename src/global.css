@@ -1779,3 +1779,114 @@ button {
         transform: translate(-50%, 0);
     }
 }
+
+/* Info Icon and Tooltip */
+.info-tooltip-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: help;
+}
+
+.info-tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    max-width: 280px;
+    background-color: var(--bg-surface-2);
+    color: var(--text-main);
+    text-align: left;
+    border-radius: 8px;
+    padding: 12px;
+    position: absolute;
+    z-index: 100;
+    bottom: calc(100% + 8px);
+    left: 10px;
+    transform: translateX(-50%) translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    border: 1px solid var(--border-main);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    line-height: 1.4;
+}
+
+.info-tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--border-main) transparent transparent transparent;
+}
+
+.info-tooltip-text::before {
+    content: "";
+    position: absolute;
+    top: calc(100% - 1.5px);
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--bg-surface-2) transparent transparent transparent;
+    z-index: 1;
+}
+
+.info-tooltip-container:hover .info-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.info-icon-svg {
+    color: var(--text-muted);
+    transition: color 0.2s, transform 0.2s;
+    display: block;
+}
+
+.info-tooltip-container:hover .info-icon-svg {
+    color: var(--text-title);
+    transform: scale(1.05);
+}
+
+.info-icon-mark {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 0;
+}
+
+.info-tooltip-container:hover .info-icon-mark {
+    animation: drawInfoMark 0.4s ease-in-out forwards;
+}
+
+@keyframes drawInfoMark {
+    0% {
+        stroke-dashoffset: 40;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+.info-icon-dot {
+    transform-origin: 12px 19px;
+}
+
+.info-tooltip-container:hover .info-icon-dot {
+    animation: bounceInfoDot 0.3s ease-out 0.1s both;
+}
+
+@keyframes bounceInfoDot {
+    0% {
+        transform: translateY(0) scale(0);
+    }
+    50% {
+        transform: translateY(-3px) scale(1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+

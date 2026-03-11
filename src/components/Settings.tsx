@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "preact/hooks";
 import { bangs } from "../bang";
+import { InfoIcon } from "./InfoIcon";
 
 export interface CustomBang {
     t: string; // tag
@@ -242,12 +243,20 @@ export function Settings({
                             </div>
 
                             <div className="settings-item">
-                                <h3
-                                    className="settings-label"
-                                    style={{ marginBottom: "12px", fontSize: "1rem" }}
-                                >
-                                    Custom Bangs
-                                </h3>
+                                <div style={{ display: "flex", alignItems: "center", marginBottom: "12px", gap: "8px" }}>
+                                    <h3
+                                        className="settings-label"
+                                        style={{ marginBottom: 0, fontSize: "1rem" }}
+                                    >
+                                        Custom Bangs
+                                    </h3>
+                                    <div className="info-tooltip-container">
+                                        <InfoIcon />
+                                        <div className="info-tooltip-text">
+                                            Custom bangs let you set your own shortcut for any URL parameter based search. Use <span style="font-family: monospace">%s</span> as a placeholder for the search query.<br /><br />e.g.: https://www.google.com/search?q=<span style="font-family: monospace">%s</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <form onSubmit={addCustomBang} className="custom-bang-form">
                                     <div
                                         className="settings-input-wrapper"
@@ -280,7 +289,7 @@ export function Settings({
                                     >
                                         <input
                                             type="url"
-                                            placeholder="URL (use %s for query)"
+                                            placeholder="URL (e.g. https://www.google.com/search?q=%s)"
                                             value={cbUrl}
                                             onInput={(e) => setCbUrl(e.currentTarget.value)}
                                             className="settings-input"
