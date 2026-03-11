@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect, useRef } from "preact/hooks";
 import autoAnimate from "@formkit/auto-animate";
 import { bangs } from "../bang";
+import { extensionBangs } from "../extensionBang";
 import { CustomBang } from "./Settings";
 
-function getRelevanceScore(bang: string[], query: string, isCustom = false): number {
+function getRelevanceScore(bang: string[], query: string, type: string = "static"): number {
     let q = query.toLowerCase();
     if (q.startsWith("!")) q = q.slice(1);
     const tag = bang[6];
@@ -30,8 +31,9 @@ function getRelevanceScore(bang: string[], query: string, isCustom = false): num
     // Tie-breaker: prioritize shorter tags to surface the "main" short bangs first
     score -= tag.length;
     
-    // Always prioritize custom bangs if they match
-    if (isCustom && score > 0) score += 20000;
+    // Prioritize custom and extension bangs if they match
+    if (type === "custom" && score > 0) score += 20000;
+    if (type === "extension" && score > 0) score += 15000;
     
     return score;
 }
@@ -91,7 +93,16 @@ export function Bangs({ customBangs = [] }: BangsProps) {
             // Add a special 5th element flag "custom" to easily identify it in the score function
             return [cleanedTag, name, domain, "", "custom", searchableString, tagLower, nameLower, domainLower];
         });
-        return [...formattedCustomBangs, ...preparedStaticBangs];
+
+        const formattedExtensionBangs = extensionBangs.map((eb) => {
+            const tagLower = eb[0].toLowerCase();
+            const nameLower = eb[1].toLowerCase();
+            const domainLower = (eb[2] || "").toLowerCase();
+            const searchableString = `${tagLower} ${nameLower} ${domainLower}`;
+            return [eb[0], eb[1], eb[2], eb[3], "extension", searchableString, tagLower, nameLower, domainLower];
+        });
+
+        return [...formattedExtensionBangs, ...formattedCustomBangs, ...preparedStaticBangs];
     }, [customBangs, preparedStaticBangs]);
 
     const filteredBangs = useMemo(() => {
@@ -107,12 +118,12 @@ export function Bangs({ customBangs = [] }: BangsProps) {
 
     const sortedBangs = useMemo(() => {
         return [...filteredBangs].sort((a, b) => {
-            const isCustomA = a[4] === "custom";
-            const isCustomB = b[4] === "custom";
+            const typeA = a[4];
+            const typeB = b[4];
 
             if (sortColumn === "relevance" && debouncedQuery) {
-                const scoreA = getRelevanceScore(a, debouncedQuery, isCustomA);
-                const scoreB = getRelevanceScore(b, debouncedQuery, isCustomB);
+                const scoreA = getRelevanceScore(a, debouncedQuery, typeA);
+                const scoreB = getRelevanceScore(b, debouncedQuery, typeB);
                 if (scoreA !== scoreB) {
                     return scoreB - scoreA;
                 }
@@ -208,6 +219,16 @@ export function Bangs({ customBangs = [] }: BangsProps) {
                                             color: "var(--text-muted)"
                                         }}>
                                             Custom
+                                        </span>
+                                    )}
+                                    {b[4] === "extension" && (
+                                        <span className="bang-extension-badge" style={{ 
+                                            marginLeft: "8px", 
+                                            fontSize: "0.7em", 
+                                            padding: "2px 6px", 
+                                            borderRadius: "4px",
+                                        }}>
+                                            Extension
                                         </span>
                                     )}
                                 </td>
