@@ -3,15 +3,6 @@ import autoAnimate from "@formkit/auto-animate";
 import { bangs } from "../bang";
 import { CustomBang } from "./Settings";
 
-const preparedStaticBangs = bangs.map((b) => {
-    const tagLower = b[0].toLowerCase();
-    const nameLower = b[1].toLowerCase();
-    const domainLower = (b[2] || "").toLowerCase();
-    const catLower = (b[3] || "").toLowerCase();
-    const searchableString = `${tagLower} ${nameLower} ${domainLower} ${catLower}`;
-    return [b[0], b[1], b[2], b[3], "static", searchableString, tagLower, nameLower, domainLower];
-});
-
 function getRelevanceScore(bang: string[], query: string, isCustom = false): number {
     let q = query.toLowerCase();
     if (q.startsWith("!")) q = q.slice(1);
@@ -50,6 +41,17 @@ interface BangsProps {
 }
 
 export function Bangs({ customBangs = [] }: BangsProps) {
+    const preparedStaticBangs = useMemo(() => {
+        return bangs.map((b) => {
+            const tagLower = b[0].toLowerCase();
+            const nameLower = b[1].toLowerCase();
+            const domainLower = (b[2] || "").toLowerCase();
+            const catLower = (b[3] || "").toLowerCase();
+            const searchableString = `${tagLower} ${nameLower} ${domainLower} ${catLower}`;
+            return [b[0], b[1], b[2], b[3], "static", searchableString, tagLower, nameLower, domainLower];
+        });
+    }, []);
+
     const [searchQuery, setSearchQuery] = useState("");
     const [debouncedQuery, setDebouncedQuery] = useState("");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -90,7 +92,7 @@ export function Bangs({ customBangs = [] }: BangsProps) {
             return [cleanedTag, name, domain, "", "custom", searchableString, tagLower, nameLower, domainLower];
         });
         return [...formattedCustomBangs, ...preparedStaticBangs];
-    }, [customBangs]);
+    }, [customBangs, preparedStaticBangs]);
 
     const filteredBangs = useMemo(() => {
         if (!debouncedQuery) return allBangs;
