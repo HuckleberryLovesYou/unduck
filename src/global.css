@@ -1974,7 +1974,9 @@ button {
     background: var(--bg-surface-1);
     border-radius: 12px;
     border: 1px solid var(--border-main);
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 280px);
 }
 
 .bangs-table {
@@ -1996,6 +1998,9 @@ button {
     cursor: pointer;
     user-select: none;
     transition: background 0.2s;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .bangs-table th.sortable:hover {
