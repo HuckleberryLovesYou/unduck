@@ -1,4 +1,4 @@
-export const currentVersion = "v0.4.1";
+export const currentVersion = "v0.4.2";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,13 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2026-03-14",
+        title: "Fixed a Bug not showing the Extension required modal",
+        description:
+            "Fixed a Bug not showing the Extension required modal when searching with the in-app searchbar.",
+        version: "v0.4.2"
+    },
     {
         date: "2026-03-14",
         title: "Improved Searchbar !Bang Search",
