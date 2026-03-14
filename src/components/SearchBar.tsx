@@ -1,8 +1,16 @@
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useState, useEffect, useRef, useMemo } from "preact/hooks";
 import { CustomBang } from "./Settings";
-import { bangs, Bang } from "../bang";
 import { handleRedirect } from "../lib/utils";
 import { SearchIcon } from "./SearchIcon";
+import { extensionBangs } from "../extensionBang";
+import {
+    prepareStaticBangs,
+    prepareCustomBangs,
+    prepareExtensionBangs,
+    searchBangs,
+    PreparedBang
+} from "../lib/searchUtils";
+import { bangs } from "../bang";
 
 interface SearchBarProps {
     openInNewTab: boolean;
@@ -20,9 +28,19 @@ interface SearchBarProps {
 export function SearchBar(props: SearchBarProps) {
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<string[]>([]);
-    const [bangMatches, setBangMatches] = useState<Bang[]>([]);
+    const [bangMatches, setBangMatches] = useState<PreparedBang[]>([]);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const preparedStaticBangs = useMemo(() => prepareStaticBangs(bangs), []);
+
+    const allPreparedBangs = useMemo(() => {
+        return [
+            ...prepareExtensionBangs(extensionBangs),
+            ...prepareCustomBangs(props.customBangs),
+            ...preparedStaticBangs
+        ];
+    }, [props.customBangs, preparedStaticBangs]);
 
     const getSearchTerms = (): string[] => {
         try {
@@ -68,12 +86,7 @@ export function SearchBar(props: SearchBarProps) {
 
         if (bangMatch) {
             const bangPrefix = bangMatch[1];
-            const allBangs: Bang[] = [
-                ...props.customBangs.map((cb) => [cb.t, cb.c || cb.t, "Custom", cb.u] as Bang),
-                ...bangs
-            ];
-
-            const matches = allBangs.filter((b) => b[0].startsWith(bangPrefix)).slice(0, 5);
+            const matches = searchBangs(allPreparedBangs, bangPrefix, 5);
             setBangMatches(matches);
             setSuggestions([]);
         } else {
@@ -89,11 +102,11 @@ export function SearchBar(props: SearchBarProps) {
                 setSuggestions(matches);
             }
         }
-    }, [query, props.customBangs]);
+    }, [query, allPreparedBangs]);
 
-    const handleSelection = (item: string | Bang) => {
-        if (Array.isArray(item)) {
-            const newQuery = query.replace(/!(\S*)$/, `!${item[0]} `);
+    const handleSelection = (item: string | PreparedBang) => {
+        if (typeof item !== "string") {
+            const newQuery = query.replace(/!(\S*)$/, `!${item.tag} `);
             setQuery(newQuery);
         } else {
             // If the item itself contains a bang, just use it as is
@@ -172,15 +185,15 @@ export function SearchBar(props: SearchBarProps) {
                                 {bangMatches.length > 0 &&
                                     bangMatches.map((b, idx) => (
                                         <button
-                                            key={b[0]}
+                                            key={b.tag}
                                             className={`history-button ${
                                                 selectedIndex === idx ? "selected" : ""
                                             }`}
                                             onClick={() => handleSelection(b)}
                                             onMouseEnter={() => setSelectedIndex(idx)}
                                         >
-                                            <strong>!{b[0]}</strong>{" "}
-                                            <span style={{ opacity: 0.7 }}> - {b[1]}</span>
+                                            <strong>!{b.tag}</strong>{" "}
+                                            <span style={{ opacity: 0.7 }}> - {b.name}</span>
                                         </button>
                                     ))}
                                 {suggestions.map((s, idx) => (
