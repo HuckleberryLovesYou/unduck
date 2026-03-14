@@ -1,4 +1,4 @@
-export const currentVersion = "v0.4.0";
+export const currentVersion = "v0.4.1";
 
 export interface ChangelogEntry {
     date: string;
@@ -8,6 +8,13 @@ export interface ChangelogEntry {
 }
 
 export const changelogData: ChangelogEntry[] = [
+    {
+        date: "2026-03-14",
+        title: "Improved Searchbar !Bang Search",
+        description:
+            "Improved the searchbar !bang search by using the same algorithm as on the dedicated finding page.",
+        version: "v0.4.1"
+    },
     {
         date: "2026-03-12",
         title: "Added Find !Bangs Page",
