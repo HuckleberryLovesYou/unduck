@@ -57,6 +57,54 @@ export function getBangRedirectUrl(
     return finalBang[3].replace("{{{s}}}", encodeURIComponent(cleanQuery).replace(/%2F/g, "/"));
 }
 
+export function checkExtensionInstalled(): Promise<boolean> {
+    if (typeof document === "undefined") return Promise.resolve(false);
+    return Promise.resolve(!!document.getElementById("__unduck_extension_installed__"));
+}
+
+export function handleRedirect(
+    query: string,
+    defaultBang: string,
+    customBangs: CustomBang[],
+    setNeedsExtension: (val: boolean) => void,
+    setPendingRedirect: (url: string | null) => void,
+    openInNewTab: boolean = false
+) {
+    const redirectUrl = getBangRedirectUrl(query, defaultBang, customBangs);
+    if (!redirectUrl) return;
+
+    const executeRedirect = (url: string) => {
+        if (openInNewTab) {
+            window.open(url, "_blank");
+        } else {
+            window.location.replace(url);
+        }
+    };
+
+    // Check if this is an extension-requiring URL
+    if (redirectUrl.includes("?unduck=")) {
+        const skipCheck = localStorage.getItem("unduck-skip-extension-check") === "true";
+
+        if (skipCheck) {
+            const cleanUrl = redirectUrl.split("?")[0];
+            executeRedirect(cleanUrl);
+            return;
+        }
+
+        // Perform async check
+        checkExtensionInstalled().then((isInstalled) => {
+            if (isInstalled) {
+                executeRedirect(redirectUrl);
+            } else {
+                setPendingRedirect(redirectUrl);
+                setNeedsExtension(true);
+            }
+        });
+    } else {
+        executeRedirect(redirectUrl);
+    }
+}
+
 export function parseVersion(version: string) {
     const match = version.match(/^v?(\d+)\.(\d+)\.(\d+)$/);
     if (!match) return { major: 0, minor: 0, patch: 0 };

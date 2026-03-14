@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "preact/hooks";
 import { CustomBang } from "./Settings";
 import { bangs, Bang } from "../bang";
-import { getBangRedirectUrl } from "../lib/utils";
+import { handleRedirect } from "../lib/utils";
 import { SearchIcon } from "./SearchIcon";
 
 interface SearchBarProps {
@@ -13,6 +13,8 @@ interface SearchBarProps {
     setCustomBangs: (val: CustomBang[]) => void;
     theme: string;
     setTheme: (val: string) => void;
+    setNeedsExtension: (val: boolean) => void;
+    setPendingRedirect: (url: string | null) => void;
 }
 
 export function SearchBar(props: SearchBarProps) {
@@ -32,13 +34,13 @@ export function SearchBar(props: SearchBarProps) {
     };
 
     const saveSearchTerm = (term: string) => {
-        const cleanTerm = term.replace(/!\S+/g, "").trim();
-        if (!cleanTerm) return;
+        const trimmedTerm = term.trim();
+        if (!trimmedTerm) return;
 
         const terms = getSearchTerms();
-        const index = terms.indexOf(cleanTerm);
+        const index = terms.indexOf(trimmedTerm);
         if (index !== -1) terms.splice(index, 1);
-        terms.unshift(cleanTerm);
+        terms.unshift(trimmedTerm);
         if (terms.length > 20) terms.splice(20);
         localStorage.setItem("searchTerms", JSON.stringify(terms));
     };
@@ -48,14 +50,14 @@ export function SearchBar(props: SearchBarProps) {
         if (!term.trim()) return;
         saveSearchTerm(term);
 
-        const url = getBangRedirectUrl(term, props.defaultBang, props.customBangs);
-        if (url) {
-            if (props.openInNewTab) {
-                window.open(url, "_blank");
-            } else {
-                window.location.replace(url);
-            }
-        }
+        handleRedirect(
+            term,
+            props.defaultBang,
+            props.customBangs,
+            props.setNeedsExtension,
+            props.setPendingRedirect,
+            props.openInNewTab
+        );
     };
 
     useEffect(() => {
@@ -94,18 +96,23 @@ export function SearchBar(props: SearchBarProps) {
             const newQuery = query.replace(/!(\S*)$/, `!${item[0]} `);
             setQuery(newQuery);
         } else {
-            const existingBangs = query.match(/!\S+/g);
-            if (existingBangs) {
-                const bangsFound = query.match(/!\S+/g) || [];
-                const startsWithBang = query.trim().startsWith("!");
-
-                if (startsWithBang) {
-                    setQuery(`${bangsFound.join(" ")} ${item}`);
-                } else {
-                    setQuery(`${item} ${bangsFound.join(" ")}`);
-                }
-            } else {
+            // If the item itself contains a bang, just use it as is
+            if (item.includes("!")) {
                 setQuery(item);
+            } else {
+                const existingBangs = query.match(/!\S+/g);
+                if (existingBangs) {
+                    const bangsFound = query.match(/!\S+/g) || [];
+                    const startsWithBang = query.trim().startsWith("!");
+
+                    if (startsWithBang) {
+                        setQuery(`${bangsFound.join(" ")} ${item}`);
+                    } else {
+                        setQuery(`${item} ${bangsFound.join(" ")}`);
+                    }
+                } else {
+                    setQuery(item);
+                }
             }
         }
         inputRef.current?.focus();

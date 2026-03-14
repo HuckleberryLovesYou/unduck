@@ -8,11 +8,7 @@ import { ExtensionRequiredModal } from "./components/ExtensionRequiredModal";
 import { Sidebar } from "./components/Sidebar";
 import { ChangedBangs } from "./components/ChangedBangs";
 import { Bangs } from "./components/Bangs";
-import { getBangRedirectUrl } from "./lib/utils";
-
-function checkExtensionInstalled(): Promise<boolean> {
-    return Promise.resolve(!!document.getElementById("__unduck_extension_installed__"));
-}
+import { handleRedirect, checkExtensionInstalled } from "./lib/utils";
 
 export function App() {
     const [route, setRoute] = useState(window.location.pathname);
@@ -95,31 +91,14 @@ export function App() {
     useEffect(() => {
         if (!query) return;
 
-        const redirectUrl = getBangRedirectUrl(query, defaultBang, customBangs);
-        if (!redirectUrl) return;
-
-        // Check if this is an extension-requiring URL
-        if (redirectUrl.includes("?unduck=")) {
-            const skipCheck = localStorage.getItem("unduck-skip-extension-check") === "true";
-
-            if (skipCheck) {
-                const cleanUrl = redirectUrl.split("?")[0];
-                window.location.replace(cleanUrl);
-                return;
-            }
-
-            // Perform async check
-            checkExtensionInstalled().then((isInstalled) => {
-                if (isInstalled) {
-                    window.location.replace(redirectUrl);
-                } else {
-                    setPendingRedirect(redirectUrl);
-                    setNeedsExtension(true);
-                }
-            });
-        } else {
-            window.location.replace(redirectUrl);
-        }
+        handleRedirect(
+            query,
+            defaultBang,
+            customBangs,
+            setNeedsExtension,
+            setPendingRedirect,
+            false // openInNewTab is handled by browser if using URL bar, but we pass false here
+        );
     }, [query, defaultBang, customBangs]);
 
     // Polling only when modal is open
@@ -171,6 +150,8 @@ export function App() {
                 setCustomBangs={setCustomBangs}
                 theme={theme}
                 setTheme={setTheme}
+                setNeedsExtension={setNeedsExtension}
+                setPendingRedirect={setPendingRedirect}
             />
         );
     } else if (route === "/privacy-policy") {
